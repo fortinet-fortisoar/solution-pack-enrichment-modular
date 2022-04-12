@@ -1,0 +1,171 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": ">> Get VirusTotal Reputation for IP Address",
+    "aliasName": null,
+    "tag": null,
+    "description": "Input is IP Address Output is HTML reputation details and HTML score and Integer score",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [
+        "artifact"
+    ],
+    "synchronous": false,
+    "lastModifyDate": 1649405368,
+    "collection": "\/api\/3\/workflow_collections\/7d2ceeee-a36b-4015-8379-0779f92b8591",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/772f30f8-e807-4692-a1a0-e11a4ed086af",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Compute Reputation Data",
+            "description": null,
+            "arguments": {
+                "__add_reputation": "{{vars.list_of_lists.append([\"Reputation Details\",vars.vt_reputation])}}"
+            },
+            "status": null,
+            "top": "435",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "259ce984-8b53-4f19-b200-16a43c77cd23",
+            "id": 16292
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "step_variables": {
+                    "input": {
+                        "params": []
+                    },
+                    "record": "{{vars.input.params['artifact']}}",
+                    "table_color": "#22a6af",
+                    "list_of_lists": "[]",
+                    "useMockOutput": "{{globalVars.Demo_mode}}",
+                    "whoisdata_dict": "{}"
+                }
+            },
+            "status": null,
+            "top": "30",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
+            "uuid": "772f30f8-e807-4692-a1a0-e11a4ed086af",
+            "id": 16295
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get Reputation from VT",
+            "description": null,
+            "arguments": {
+                "name": "VirusTotal",
+                "config": "8afd8a09-4f71-4cba-bb4e-31cd72da1a4e",
+                "params": {
+                    "ip": "{{vars.record}}",
+                    "relationships": ""
+                },
+                "version": "2.2.0",
+                "connector": "virustotal",
+                "operation": "query_ip",
+                "operationTitle": "Get IP Reputation",
+                "pickFromTenant": false,
+                "step_variables": {
+                    "temp": "{% if vars.result.data.attributes.whois.raw %}{%- for item in vars.result.data.attributes.whois.raw[0].split(\"\\n\") -%}{%- set key = item.split(\":\")[0] -%}{%- set value = item.split(\":\")[1:] | join(\"\") -%}{%if value and key%}{{vars.whoisdata_dict.update({key:value})}}{%endif%}{%- endfor -%}{%endif%}",
+                    "vt_data": "{{vars.result.data}}",
+                    "community_votes": "{{vars.result.data.attributes['total_votes']}}",
+                    "last_analysis_stats": "{{vars.result.data.attributes['last_analysis_stats']}}"
+                }
+            },
+            "status": null,
+            "top": "165",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "84333a77-0381-455a-bb15-69b05061e642",
+            "id": 16296
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Output Data",
+            "description": null,
+            "arguments": {
+                "cti_name": "VirusTotal",
+                "cti_score": "{{vars.last_analysis_stats.malicious or vars.last_analysis_stats.suspicious or 0}}",
+                "enrichment_data": "{{vars.list_of_lists}}"
+            },
+            "status": null,
+            "top": "570",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "9e26c5b9-dbf8-493e-bac2-55daf33c7c9e",
+            "id": 16294
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Compute Reports",
+            "description": null,
+            "arguments": {
+                "__add_whois": "{{vars.list_of_lists.append([\"Whois Report\",vars.whoisdata_dict])}}",
+                "vt_reputation": "<table style=\"border-color: #04080c;\" border=\"1\" class=\"font-normal\">\n<tr><td>\n<table style=\"color:white;font-size:11;\" >\n<tr>\n<td>\n<html>\n<head>\n<title>Title of the document<\/title>\n<style>\nspan.circle {\nbackground: #2f3f51;\nborder-radius: 50%;\n-moz-border-radius: 50%;\n-webkit-border-radius: 50%;\ndisplay: inline-block;\n    font-weight: bold;\nline-height: 100px;\nmargin-right: 5px;\ntext-align: center;\nwidth: 100px;\nfont-size:15px;\nborder-color: Black;\n}\n<\/style>\n<\/head>\n<body><span class=\"circle\"><i style=\"font-size:25px;color:red \">\n{{vars.last_analysis_stats.malicious}}<\/i>\/{{vars.last_analysis_stats.values() | list | sum}}<\/span>\n<\/body>\n<\/html>\n<\/td>\n\n<td>\n<div class=\"font-size-14 ng-binding\">Malicious<\/div>\n<div class=\"card-container-body\" style=\"width: 100px;font-size:46px;\">\n<div class=\"card-number\"; style=\"font-size:45px;  border-left: 5px solid red;background:#141b23\">{{vars.last_analysis_stats.malicious}}<\/div>\n<\/div>\n<\/td>\n<td>\n<div class=\"font-size-14 ng-binding\">Suspicious<\/div>\n<div class=\"card-container-body\" style=\"width: 100px;\">\n<div class=\"card-number\" style=\"font-size:45px;  border-left: 5px solid orange; background:#141b23\">{{vars.last_analysis_stats.suspicious}}<\/div>\n<\/div>\n<\/td>\n<td>\n<div class=\"font-size-14 ng-binding\">Harmless<\/div>\n<div class=\"card-container-body\" style=\"width: 100px;\">\n<div class=\"card-number\" style=\"font-size:45px;  border-left: 5px solid green; background:#141b23\">{{vars.last_analysis_stats.harmless}}<\/div><\/div>\n<\/td>\n<\/tr>\n<\/table>\n\n<td style=\"vertical-align:top\">\n<table style=\"background-color: #1b2430; color:white;font-size:16;\" class=\"margin-10\">\n<tr>\n<div class=\"margin-top-md\">\n<i class=\"fa fa-group margin-left-md margin-right-sm\"><\/i> Community Votes<\/div>\n\n<td style=\"width: 100px;text-align: center;background:#141b23\">\n<i class=\"\tfa fa-thumbs-o-up\" style=\"font-size:25px;color:green\"><\/i>\n<div class=\"font-size-11 ng-binding\">Harmless {{vars.community_votes.harmless}}<\/div>\n<\/td>\n<td style=\"width: 100px;text-align: center;background:#141b23\">\n<i class=\"fa fa-thumbs-o-down\" style=\"font-size:25px;color:red \"><\/i>\n<div class=\"font-size-11 ng-binding\">Malicious {{vars.community_votes.malicious}}<\/div>\n<\/td>\n<\/tr>\n<\/table>\n<\/div>\n<\/td>\n<\/tr>\n<\/table>"
+            },
+            "status": null,
+            "top": "300",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "cc0b6b61-29d7-41d7-9525-791c427e32ea",
+            "id": 16293
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get Reputation from VT -> Compute Report Input Data",
+            "targetStep": "\/api\/3\/workflow_steps\/cc0b6b61-29d7-41d7-9525-791c427e32ea",
+            "sourceStep": "\/api\/3\/workflow_steps\/84333a77-0381-455a-bb15-69b05061e642",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "703fda4a-b2e4-4d51-a567-8888173f3252"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Get Reputation from VT",
+            "targetStep": "\/api\/3\/workflow_steps\/84333a77-0381-455a-bb15-69b05061e642",
+            "sourceStep": "\/api\/3\/workflow_steps\/772f30f8-e807-4692-a1a0-e11a4ed086af",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "f38d1d23-e50d-4c83-917d-090853a1ef21"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Compute Reports -> Compute Reputation Data",
+            "targetStep": "\/api\/3\/workflow_steps\/259ce984-8b53-4f19-b200-16a43c77cd23",
+            "sourceStep": "\/api\/3\/workflow_steps\/cc0b6b61-29d7-41d7-9525-791c427e32ea",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "653a4e1b-757e-4800-ba2e-3e0648525222"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Compute Reputation Data -> Output Data",
+            "targetStep": "\/api\/3\/workflow_steps\/9e26c5b9-dbf8-493e-bac2-55daf33c7c9e",
+            "sourceStep": "\/api\/3\/workflow_steps\/259ce984-8b53-4f19-b200-16a43c77cd23",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "b611beff-429c-49fc-bdb7-709d3ffcbf7e"
+        }
+    ],
+    "priority": "\/api\/3\/picklists\/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+    "uuid": "a6a92cc5-1934-41c6-a608-8510d38c4dbc",
+    "recordTags": [
+        "Subroutine",
+        "IP_Enrichment"
+    ],
+    "id": 3162,
+    "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "createDate": 1649405370,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1649405370,
+    "owners": [],
+    "isPrivate": false
+}

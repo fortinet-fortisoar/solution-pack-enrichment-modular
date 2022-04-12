@@ -1,0 +1,111 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Update Indicator Enrichment Global VARs",
+    "aliasName": null,
+    "tag": null,
+    "description": "update enrichment playbooks list global variable based on indicator type defined as param tag",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [
+        "indicator_tag"
+    ],
+    "synchronous": false,
+    "lastModifyDate": 1649405978,
+    "collection": "\/api\/3\/workflow_collections\/7d2ceeee-a36b-4015-8379-0779f92b8591",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/d9f661f8-685c-4e0b-9040-99bbe73685c4",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Configuration",
+            "description": null,
+            "arguments": {
+                "indicators_tags": "[\"\/api\/3\/tags\/IP_Enrichment\",\"\/api\/3\/tags\/URL_Enrichment\",\"\/api\/3\/tags\/Domain_Enrichment\",\"\/api\/3\/tags\/Email_Enrichment\",\"\/api\/3\/tags\/Hashcode_Enrichment\"]"
+            },
+            "status": null,
+            "top": "165",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "10d7b52b-6ef2-417a-acdd-8945323ec426",
+            "id": 16202
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Update Playbooks Lists Global vars",
+            "description": null,
+            "arguments": {
+                "for_each": {
+                    "item": "{{vars.indicators_tags}}",
+                    "parallel": false,
+                    "condition": ""
+                },
+                "arguments": {
+                    "indicator_tag": "{{vars.item}}"
+                },
+                "apply_async": false,
+                "step_variables": [],
+                "workflowReference": "\/api\/3\/workflows\/0278ae02-af0f-466a-8e47-7baf668e3684"
+            },
+            "status": null,
+            "top": "300",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
+            "uuid": "49ff03da-3808-4402-8660-25db41a5ff78",
+            "id": 16201
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "step_variables": {
+                    "input": {
+                        "params": []
+                    }
+                }
+            },
+            "status": null,
+            "top": "30",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
+            "uuid": "d9f661f8-685c-4e0b-9040-99bbe73685c4",
+            "id": 16200
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Configuration",
+            "targetStep": "\/api\/3\/workflow_steps\/10d7b52b-6ef2-417a-acdd-8945323ec426",
+            "sourceStep": "\/api\/3\/workflow_steps\/d9f661f8-685c-4e0b-9040-99bbe73685c4",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "a67537b0-beb7-4f49-87a9-431aaf005304"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Configuration -> Update Playbooks Lists Global vars",
+            "targetStep": "\/api\/3\/workflow_steps\/49ff03da-3808-4402-8660-25db41a5ff78",
+            "sourceStep": "\/api\/3\/workflow_steps\/10d7b52b-6ef2-417a-acdd-8945323ec426",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "30fe4c06-4aeb-42a7-8925-f625aaff0757"
+        }
+    ],
+    "priority": "\/api\/3\/picklists\/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+    "uuid": "43dc6cb0-796b-4c15-9242-23c2d61844fc",
+    "recordTags": [
+        "Enrichment",
+        "Utility"
+    ],
+    "id": 3153,
+    "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "createDate": 1649405370,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1649405984,
+    "owners": [],
+    "isPrivate": false
+}

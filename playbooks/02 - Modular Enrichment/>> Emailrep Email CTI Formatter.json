@@ -1,0 +1,146 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": ">> Emailrep Email CTI Formatter",
+    "aliasName": null,
+    "tag": null,
+    "description": "Get and Format Email CTI from EmailRep",
+    "isActive": true,
+    "debug": true,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [
+        "artifact"
+    ],
+    "synchronous": false,
+    "lastModifyDate": 1649767819,
+    "collection": "\/api\/3\/workflow_collections\/7d2ceeee-a36b-4015-8379-0779f92b8591",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/a7fa14ab-d582-494d-81ae-3fe79be5e267",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Output Data",
+            "description": null,
+            "arguments": {
+                "cti_name": "EMailRep",
+                "cti_score": "{{vars.__tmp_compute_score}}",
+                "enrichment_data": "{{vars.list_of_lists}}"
+            },
+            "status": null,
+            "top": "435",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "538c92b0-e531-4c04-9748-e9d8a4afbb0e",
+            "id": 16402
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Reputation Data Preprocess",
+            "description": null,
+            "arguments": {
+                "__tmp_compute_score": "{%if vars.emailrep_data.suspicious or vars.reputation_detail.spam%}10{%elif vars.emailrep_data.reputation == 'none'%}8{%elif vars.emailrep_data.reputation == 'low'%}5{%elif vars.emailrep_data.reputation == 'medium'%}2{%elif vars.emailrep_data.reputation == 'high'%}0{%endif%}",
+                "__tmp_populate_lists": "{%if vars.emailrep_data%}\n{% set rep_details=vars.reputation_detail.update(vars.emailrep_data.details)%}\n{% set _tmp0=vars.emailrep_data.pop('details')%}\n{% set tmp_desc=vars.emailrep_data.summary.replace(',','.').replace('.','<br>')%}\n{% set _tmp1=vars.emailrep_data.update({'summary':tmp_desc})%}\n{{vars.list_of_lists.append(['EmailRep Summary',vars.emailrep_data])}}\n{{vars.list_of_lists.append(['EmailRep Details',vars.reputation_detail])}}\n{%endif%}"
+            },
+            "status": null,
+            "top": "300",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "8cdde5a6-ef08-4bfa-806b-78dcca3351c3",
+            "id": 16327
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "step_variables": {
+                    "input": {
+                        "params": []
+                    },
+                    "record": "{{vars.input.params['artifact']}}",
+                    "table_color": "#22a6af",
+                    "list_of_lists": "[]",
+                    "useMockOutput": "{{globalVars.Demo_mode}}",
+                    "reputation_detail": "{}"
+                }
+            },
+            "status": null,
+            "top": "30",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
+            "uuid": "a7fa14ab-d582-494d-81ae-3fe79be5e267",
+            "id": 16324
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get Emailrep Reputation",
+            "description": null,
+            "arguments": {
+                "name": "EmailRep",
+                "config": "edac143b-f608-4a64-b2d4-d02695955b89",
+                "params": {
+                    "summary": true,
+                    "emailaddress": "{{vars.record}}"
+                },
+                "version": "1.0.0",
+                "connector": "emailrep",
+                "operation": "email_reputation",
+                "mock_result": "{\n  \"data\": {\n    \"email\": \"{{vars.input.params.artifact}}\",\n    \"details\": {\n      \"spam\": true,\n      \"profiles\": [\n        \"twitter\",\n        \"linkedin\"\n      ],\n      \"valid_mx\": true,\n      \"last_seen\": \"10\/08\/2021\",\n      \"spoofable\": false,\n      \"accept_all\": true,\n      \"disposable\": false,\n      \"first_seen\": \"07\/01\/2008\",\n      \"new_domain\": false,\n      \"primary_mx\": \"microsoft-com.mail.protection.outlook.com\",\n      \"spf_strict\": true,\n      \"blacklisted\": false,\n      \"data_breach\": true,\n      \"deliverable\": true,\n      \"domain_exists\": true,\n      \"free_provider\": false,\n      \"dmarc_enforced\": true,\n      \"suspicious_tld\": false,\n      \"domain_reputation\": \"high\",\n      \"credentials_leaked\": true,\n      \"malicious_activity\": false,\n      \"credentials_leaked_recent\": false,\n      \"malicious_activity_recent\": false,\n      \"days_since_domain_creation\": 11254\n    },\n    \"summary\": \"Not suspicious. This email address has been seen in 99 reputable sources on the internet, and has profiles on well known sites like Twitter and Linkedin. It has been seen in data breaches or credential leaks dating back to 07\/01\/2008, but not since 10\/08\/2021. The sender domain is highly reputable. SPF and DMARC are strictly enforced, so this email address is not spoofable. We've observed no malicious or suspicious activity from this address. \",\n    \"references\": 99,\n    \"reputation\": \"high\",\n    \"suspicious\": false\n  },\n  \"status\": \"Success\",\n  \"message\": \"\",\n  \"operation\": null\n}",
+                "operationTitle": "Get Email Address Reputation",
+                "pickFromTenant": false,
+                "step_variables": {
+                    "emailrep_data": "{{vars.result.data}}"
+                }
+            },
+            "status": null,
+            "top": "165",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "ff21f658-97b7-46e6-9ae1-d8733298d08c",
+            "id": 16323
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Get Emailrep Reputation",
+            "targetStep": "\/api\/3\/workflow_steps\/ff21f658-97b7-46e6-9ae1-d8733298d08c",
+            "sourceStep": "\/api\/3\/workflow_steps\/a7fa14ab-d582-494d-81ae-3fe79be5e267",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "d2798ff6-97a0-4b79-9c0b-176196ed73d3"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get Emailrep Reputation -> Reputation Data Preprocess",
+            "targetStep": "\/api\/3\/workflow_steps\/8cdde5a6-ef08-4bfa-806b-78dcca3351c3",
+            "sourceStep": "\/api\/3\/workflow_steps\/ff21f658-97b7-46e6-9ae1-d8733298d08c",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "2ecefca5-724f-40cf-8fd5-bbc23ce99a93"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Reputation Data Preprocess -> Output Data",
+            "targetStep": "\/api\/3\/workflow_steps\/538c92b0-e531-4c04-9748-e9d8a4afbb0e",
+            "sourceStep": "\/api\/3\/workflow_steps\/8cdde5a6-ef08-4bfa-806b-78dcca3351c3",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "9ac0ef7f-7bfc-4ee2-bfd4-75dd802abc7f"
+        }
+    ],
+    "priority": "\/api\/3\/picklists\/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+    "uuid": "c85567ca-d53e-46e4-bf41-2591178c9379",
+    "recordTags": [
+        "Subroutine",
+        "Email_Enrichment"
+    ],
+    "id": 3165,
+    "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "createDate": 1649405370,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1649767819,
+    "owners": [],
+    "isPrivate": false
+}

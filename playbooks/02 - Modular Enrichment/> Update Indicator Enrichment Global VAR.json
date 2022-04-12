@@ -1,0 +1,119 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "> Update Indicator Enrichment Global VAR",
+    "aliasName": null,
+    "tag": null,
+    "description": "update enrichment playbooks list global variable based on indicator type defined as param tag",
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [
+        "indicator_tag"
+    ],
+    "synchronous": false,
+    "lastModifyDate": 1649406266,
+    "collection": "\/api\/3\/workflow_collections\/7d2ceeee-a36b-4015-8379-0779f92b8591",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/64a90c5a-c5a1-4e29-b0a8-3f2bacb58cd4",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Get Workflows",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "query": "{\n    \"sort\": [\n        {\n            \"field\": \"createDate\",\n            \"direction\": \"DESC\",\n            \"_fieldName\": \"createDate\"\n        }\n    ],\n    \"limit\": 90,\n    \"logic\": \"AND\",\n    \"filters\": [\n        {\n            \"field\": \"recordTags\",\n            \"value\": \"{{vars.input.params['indicator_tag']}}\",\n            \"display\": \"\",\n            \"operator\": \"in\",\n            \"type\": \"array\",\n            \"OPERATOR_KEY\": \"$\"\n        },\n        {\n            \"field\": \"isActive\",\n            \"value\": true,\n            \"operator\": \"eq\"\n        },        \n        {\n            \"sort\": [\n                {\n                    \"direction\": \"DESC\",\n                    \"field\": \"createDate\",\n                    \"_fieldTitle\": \"Created On\",\n                    \"_fieldName\": \"createDate\"\n                }\n            ],\n            \"limit\": 90,\n            \"logic\": \"AND\",\n            \"filters\": []\n        }\n    ],\n    \"__selectFields\": [\n        \"id\"\n    ]\n}",
+                    "resource": "workflows"
+                },
+                "version": "3.2.0",
+                "connector": "cyops_utilities",
+                "operation": "query_cyops_resource",
+                "operationTitle": "FSR: Find Record",
+                "step_variables": {
+                    "active_workflows": "{{vars.result.data|json_query(\"[][\\\"@id\\\"][]\")}}"
+                }
+            },
+            "status": null,
+            "top": "165",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "04b324d4-fe62-454a-b363-76478946e348",
+            "id": 16149
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "step_variables": {
+                    "input": {
+                        "params": []
+                    }
+                }
+            },
+            "status": null,
+            "top": "30",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
+            "uuid": "64a90c5a-c5a1-4e29-b0a8-3f2bacb58cd4",
+            "id": 16147
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Update IP Indicators Enrichment Global Variable",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "macro": "{{vars.input.params['indicator_tag'].split('\/')[-1]}}_Playbooks_IRIs",
+                    "value": "{%if vars.active_workflows|length > 0%}{{vars.active_workflows|join(',')}}{%endif%}"
+                },
+                "version": "3.2.0",
+                "connector": "cyops_utilities",
+                "operation": "updatemacro",
+                "operationTitle": "FSR: Create\/Update Global Variables",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "300",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "702c25c7-a7c8-4b47-ae6a-c3b722140fe1",
+            "id": 16148
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Get Workflows",
+            "targetStep": "\/api\/3\/workflow_steps\/04b324d4-fe62-454a-b363-76478946e348",
+            "sourceStep": "\/api\/3\/workflow_steps\/64a90c5a-c5a1-4e29-b0a8-3f2bacb58cd4",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "5cceaf21-37f6-4675-98e9-29f8db2f8560"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get Workflows -> Update IP Indicators Enrichment Global Variable",
+            "targetStep": "\/api\/3\/workflow_steps\/702c25c7-a7c8-4b47-ae6a-c3b722140fe1",
+            "sourceStep": "\/api\/3\/workflow_steps\/04b324d4-fe62-454a-b363-76478946e348",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "5c11c036-2dd0-4540-b540-9e2c4bf8a449"
+        }
+    ],
+    "priority": "\/api\/3\/picklists\/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+    "uuid": "0278ae02-af0f-466a-8e47-7baf668e3684",
+    "recordTags": [
+        "Enrichment",
+        "Utility"
+    ],
+    "id": 3145,
+    "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "createDate": 1649405370,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1649406266,
+    "owners": [],
+    "isPrivate": false
+}

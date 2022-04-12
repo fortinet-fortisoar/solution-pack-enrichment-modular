@@ -1,0 +1,38 @@
+[
+    {
+        "id": 20,
+        "name": "Demo_mode",
+        "value": "true",
+        "default_value": "true"
+    },
+    {
+        "id": 50,
+        "name": "Domain_Enrichment_Playbooks_IRIs",
+        "value": "\/api\/3\/workflows\/0d10cbc2-f59e-4092-b421-7a749661b85e,\/api\/3\/workflows\/2d67cf86-b4bf-4923-9ea9-550a36717db2,\/api\/3\/workflows\/30c2465a-29a6-424b-a3ff-8080d269f422",
+        "default_value": "\/api\/3\/workflows\/0d10cbc2-f59e-4092-b421-7a749661b85e,\/api\/3\/workflows\/2d67cf86-b4bf-4923-9ea9-550a36717db2,\/api\/3\/workflows\/30c2465a-29a6-424b-a3ff-8080d269f422"
+    },
+    {
+        "id": 51,
+        "name": "Email_Enrichment_Playbooks_IRIs",
+        "value": "\/api\/3\/workflows\/6f2b9b24-59f5-44ab-8684-db72ffb53ed9,\/api\/3\/workflows\/c85567ca-d53e-46e4-bf41-2591178c9379",
+        "default_value": "\/api\/3\/workflows\/6f2b9b24-59f5-44ab-8684-db72ffb53ed9,\/api\/3\/workflows\/c85567ca-d53e-46e4-bf41-2591178c9379"
+    },
+    {
+        "id": 52,
+        "name": "Hashcode_Enrichment_Playbooks_IRIs",
+        "value": "\/api\/3\/workflows\/241be2c3-d4a6-4553-9106-a4b989e494af,\/api\/3\/workflows\/30c2465a-29a6-424b-a3ff-8080d269f422,\/api\/3\/workflows\/bfb0efca-c3b2-461f-a63c-12c695ea5a92,\/api\/3\/workflows\/d0ce2e7c-dad3-4eac-91ec-a6f90532a157",
+        "default_value": "\/api\/3\/workflows\/241be2c3-d4a6-4553-9106-a4b989e494af,\/api\/3\/workflows\/30c2465a-29a6-424b-a3ff-8080d269f422,\/api\/3\/workflows\/bfb0efca-c3b2-461f-a63c-12c695ea5a92,\/api\/3\/workflows\/d0ce2e7c-dad3-4eac-91ec-a6f90532a157"
+    },
+    {
+        "id": 48,
+        "name": "IP_Enrichment_Playbooks_IRIs",
+        "value": "\/api\/3\/workflows\/30c2465a-29a6-424b-a3ff-8080d269f422,\/api\/3\/workflows\/6a90a0b7-5b49-4774-ae2d-455409b77ea5,\/api\/3\/workflows\/9da329ef-7b8e-44ec-aed1-1cd41f9bd1a8,\/api\/3\/workflows\/a6a92cc5-1934-41c6-a608-8510d38c4dbc",
+        "default_value": "\/api\/3\/workflows\/30c2465a-29a6-424b-a3ff-8080d269f422,\/api\/3\/workflows\/6a90a0b7-5b49-4774-ae2d-455409b77ea5,\/api\/3\/workflows\/9da329ef-7b8e-44ec-aed1-1cd41f9bd1a8,\/api\/3\/workflows\/a6a92cc5-1934-41c6-a608-8510d38c4dbc"
+    },
+    {
+        "id": 49,
+        "name": "URL_Enrichment_Playbooks_IRIs",
+        "value": "\/api\/3\/workflows\/30c2465a-29a6-424b-a3ff-8080d269f422,\/api\/3\/workflows\/3e3705ba-b035-484c-86a7-a47569676c8c,\/api\/3\/workflows\/5e9163a3-5986-4ad2-b3f4-01088db3301c,\/api\/3\/workflows\/88ca7a1d-2f91-4d00-89b2-f0192e8a9c0e",
+        "default_value": "\/api\/3\/workflows\/30c2465a-29a6-424b-a3ff-8080d269f422,\/api\/3\/workflows\/3e3705ba-b035-484c-86a7-a47569676c8c,\/api\/3\/workflows\/5e9163a3-5986-4ad2-b3f4-01088db3301c,\/api\/3\/workflows\/88ca7a1d-2f91-4d00-89b2-f0192e8a9c0e"
+    }
+]

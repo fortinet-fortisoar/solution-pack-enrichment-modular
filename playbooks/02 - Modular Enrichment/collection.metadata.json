@@ -1,0 +1,15 @@
+{
+    "@context": "\/api\/3\/contexts\/WorkflowCollection",
+    "@type": "WorkflowCollection",
+    "name": "02 - Modular Enrichment",
+    "description": "Alternative enrichment collection, to enable it activate this one and disable the main Enrich collection",
+    "visible": true,
+    "image": null,
+    "uuid": "7d2ceeee-a36b-4015-8379-0779f92b8591",
+    "id": 278,
+    "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "createDate": 1649405370,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1649405423,
+    "recordTags": []
+}

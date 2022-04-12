@@ -1,0 +1,143 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": ">> APIVoid Email CTI Formatter",
+    "aliasName": null,
+    "tag": null,
+    "description": "Get and Format Email CTI from APIVoid",
+    "isActive": true,
+    "debug": true,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [
+        "artifact"
+    ],
+    "synchronous": false,
+    "lastModifyDate": 1649767764,
+    "collection": "\/api\/3\/workflow_collections\/7d2ceeee-a36b-4015-8379-0779f92b8591",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/58ff4007-3924-4534-8f0a-be7bed2a5538",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Output Data",
+            "description": null,
+            "arguments": {
+                "cti_name": "APIVoid",
+                "cti_score": "{{vars.apivoid_data.score}}",
+                "enrichment_data": "{{vars.list_of_lists}}"
+            },
+            "status": null,
+            "top": "435",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "02cc6fc9-898f-47d8-b4e9-30cb20ada083",
+            "id": 16277
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "step_variables": {
+                    "input": {
+                        "params": []
+                    },
+                    "record": "{{vars.input.params['artifact']}}",
+                    "table_color": "#22a6af",
+                    "list_of_lists": "[]",
+                    "useMockOutput": "{{globalVars.Demo_mode}}"
+                }
+            },
+            "status": null,
+            "top": "30",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
+            "uuid": "58ff4007-3924-4534-8f0a-be7bed2a5538",
+            "id": 16280
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "get Email Reputation",
+            "description": null,
+            "arguments": {
+                "name": "apivoid",
+                "config": "72bf40d6-7ea3-42ec-bcd9-faa41834e244",
+                "params": {
+                    "req_value": "{{vars.record}}"
+                },
+                "version": "1.0.0",
+                "connector": "apivoid",
+                "operation": "emailverify",
+                "mock_result": "{\n  \"data\": {\n    \"result\": {\n      \"data\": {\n        \"email\": \"00finness00@gmail.com\",\n        \"score\": 100,\n        \"domain\": \"gmail.com\",\n        \"username\": \"00finness00\",\n        \"risky_tld\": false,\n        \"valid_tld\": true,\n        \"disposable\": false,\n        \"free_email\": true,\n        \"did_you_mean\": \"\",\n        \"is_spoofable\": false,\n        \"role_address\": false,\n        \"should_block\": false,\n        \"valid_format\": true,\n        \"has_a_records\": true,\n        \"police_domain\": false,\n        \"dmarc_enforced\": false,\n        \"domain_popular\": true,\n        \"has_mx_records\": true,\n        \"has_spf_records\": true,\n        \"china_free_email\": false,\n        \"dmarc_configured\": true,\n        \"suspicious_email\": false,\n        \"government_domain\": false,\n        \"suspicious_domain\": false,\n        \"dirty_words_domain\": false,\n        \"educational_domain\": false,\n        \"russian_free_email\": false,\n        \"suspicious_username\": false,\n        \"dirty_words_username\": false\n      },\n      \"success\": true,\n      \"elapsed_time\": \"0.05\",\n      \"credits_remained\": 10.38,\n      \"estimated_queries\": \"173\"\n    },\n    \"status\": \"Success\"\n  },\n  \"status\": \"Success\",\n  \"message\": \"\",\n  \"operation\": null\n}",
+                "operationTitle": "Get Email Reputation",
+                "pickFromTenant": false,
+                "step_variables": {
+                    "apivoid_data": "{{vars.result.data.result.data}}"
+                }
+            },
+            "status": null,
+            "top": "165",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "uuid": "d463b8d6-4112-430d-bea6-30844de3142f",
+            "id": 16279
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Reputation Data Preprocess",
+            "description": null,
+            "arguments": {
+                "__tmp0": "{%set tmp_json={}%}\n{%if vars.apivoid_data|length >0%}{%for k,v in vars.apivoid_data.items()%}{{tmp_json.update({k:v})}}{%endfor%}\n{%endif%}\n{%if tmp_json%}{{vars.list_of_lists.append(['Detected by APIVoid',tmp_json])}}{%endif%}"
+            },
+            "status": null,
+            "top": "300",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "ff299b48-1e24-44c4-968e-bfc7f055acfb",
+            "id": 16278
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> get IP Reputation",
+            "targetStep": "\/api\/3\/workflow_steps\/d463b8d6-4112-430d-bea6-30844de3142f",
+            "sourceStep": "\/api\/3\/workflow_steps\/58ff4007-3924-4534-8f0a-be7bed2a5538",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "5cbbfbed-84bb-41c8-a4a5-edf7aea60c68"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "get Email Reputation -> Reputation Data Preprocess",
+            "targetStep": "\/api\/3\/workflow_steps\/ff299b48-1e24-44c4-968e-bfc7f055acfb",
+            "sourceStep": "\/api\/3\/workflow_steps\/d463b8d6-4112-430d-bea6-30844de3142f",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "907032d7-89b9-427b-971d-d260be3ea644"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Reputation Data Preprocess -> Output Data",
+            "targetStep": "\/api\/3\/workflow_steps\/02cc6fc9-898f-47d8-b4e9-30cb20ada083",
+            "sourceStep": "\/api\/3\/workflow_steps\/ff299b48-1e24-44c4-968e-bfc7f055acfb",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "05209026-9947-4baf-882c-11ed3cd186dc"
+        }
+    ],
+    "priority": "\/api\/3\/picklists\/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+    "uuid": "6f2b9b24-59f5-44ab-8684-db72ffb53ed9",
+    "recordTags": [
+        "Subroutine",
+        "Email_Enrichment"
+    ],
+    "id": 3159,
+    "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "createDate": 1649405370,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1649767764,
+    "owners": [],
+    "isPrivate": false
+}
