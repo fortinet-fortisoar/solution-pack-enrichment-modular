@@ -3,8 +3,14 @@ This collection is dedicated to a modular approach to enrichment playbooks. A pr
 For each type several referenced playbooks are used to perform the enrichment from a single cyber threat intelligence source.
 The primary playbook collects enrichment data from all references playbooks and computes the indicator attributes.
 
-# Referenced Playbooks
-At least one referenced playbook is required per indicator type. This playbook has the below attributes:
+# Referenced Playbooks (Modules)
+At least one referenced playbook is required per indicator type. the playbook only function is to fetch threat intelligence data from one Cyber Threat Intelligence (CTI) provider and compile the results as described in the return values sections below.
+If you want to contribute a reference playbook for a new CTI you should follow the below specifications:
+
+## Parameter:
+The playbook has only one input parameter :**artifact** which is a the artifact value to rate
+
+## Enrichment TAG:
 - Indicator type Tag: **[INDICATOR TYPE]_Enrichment**, the available tags would be:
     - IP_Enrichment
     - URL_Enrichment
@@ -16,11 +22,27 @@ At least one referenced playbook is required per indicator type. This playbook h
     - File_Enrichment  
     - Port_Enrichment  
     - Registry_Enrichment  
-    - Process_Enrichment  
-   
+    - Process_Enrichment
+
+## Return Values
 The playbook must have the last step as **SET VARIABLE** with the below variables defined:
 **cti_name**: The CTI source, exp: FortiGuard
-**cti_score**: Integer representing the artifact maliciousness  
+**cti_score**: Integer representing the artifact severity (maliciousness) preferably between 0 and 10 to compute the mean more accurately if that's needed.
+**ioc_attributes**: is a JSON dictionary with all the attributes you want to use for enrichment, the syntax is as follows:
+```json
+{"Indicator_attribute1":"Enrichment Value1","Indicator_attribute2":"Enrichment Value2"...etc}
+```
+so for example if the attribute country is to be populated from the current referenced playbook the syntax would be:
+
+```json
+{"country":"Canada"}
+```
+The attribute name must be exactly as defined in FortiSOAR module, you can check it by browsing to *Settings > Modules* Select Indicator then the field you are looking for. the field name would be as defined by *Field API Key*
+
+Example: 
+
+![](garh.png)
+
 **enrichment_data**: a JSON object with the list of tables holding the threat intel details as per the below example:
 
 ```json
@@ -46,9 +68,7 @@ The playbook must have the last step as **SET VARIABLE** with the below variable
     ...etc
 ]
 ```
-Example: **>> Get AlienVault Reputation for HashCode**
 
-![](garh.png)
 
 in summary, to add a referenced enrichment playbook for any indicator type, it would be enough to return the 3 variable above and adding the appropriate tag to the playbook then reset the list of available playbooks with the playbook **Update Indicator Enrichment Global VARs**
 
@@ -61,30 +81,30 @@ The result would be a global variable such as:
 
 # Primary Playbook: 
 
-The playbook **Indicators Enrichment - Modular** runs with the OnCreate trigger for each indicator. It fetches the list of available referenced playbooks for the current indicator type and run them in a loop to get the threat intel data from each. The data is then compiled to determine the indicator reputation, description and potentially other fields.
+The playbook **Indicators Enrichment - Modular** runs with the OnCreate trigger for each indicator. It fetches the list of available referenced playbooks for the current indicator type and runs them in a loop to get the threat intel data from each. The data is then compiled to determine the indicator reputation, description and all the fields defined by the **ioc_attributes** variables from each executed referenced playbook.
 
 
 # Currently Supported Indicators Types:
 
 ### IP Address
 
-![](media/ip_indicator.png)
+![](ip_indicator.png)
 
 ### URL
 
-![](media/url_indicator.png)
+![](url_indicator.png)
 
-### Hashcode
+### Hashcode (md5/sha1/sha256)
 
-![](media/hash_indicator.png)
+![](hash_indicator.png)
 
 ### Domain
 
-![](media/domain_indicator.png)
+![](domain_indicator.png)
 
 ### Email
 
-![](media/email_indicator.png)
+![](email_indicator.png)
 
 # Deployment:
 

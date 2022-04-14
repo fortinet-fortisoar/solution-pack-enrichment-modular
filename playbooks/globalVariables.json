@@ -2,7 +2,7 @@
     {
         "id": 20,
         "name": "Demo_mode",
-        "value": "true",
+        "value": "false",
         "default_value": "true"
     },
     {

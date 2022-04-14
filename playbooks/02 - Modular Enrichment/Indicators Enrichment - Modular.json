@@ -14,7 +14,7 @@
         "indicator_type"
     ],
     "synchronous": false,
-    "lastModifyDate": 1649768748,
+    "lastModifyDate": 1649932868,
     "collection": "\/api\/3\/workflow_collections\/7d2ceeee-a36b-4015-8379-0779f92b8591",
     "versions": [],
     "triggerStep": "\/api\/3\/workflow_steps\/ebd508f5-350d-4afb-8817-a7ea4cdc8937",
@@ -132,7 +132,7 @@
         },
         {
             "@type": "WorkflowStep",
-            "name": "Exit Condition metd",
+            "name": "Exit Data",
             "description": null,
             "arguments": {
                 "data": "{{vars.reputation_output}}"
@@ -151,6 +151,7 @@
             "arguments": {
                 "cti_names": "{{vars.raw_reputations|json_query('[].cti_name')}}",
                 "cti_scores": "{{vars.raw_reputations|json_query('[].cti_score')}}",
+                "ioc_attributes": "{{vars.raw_reputations|json_query('[].ioc_attributes')}}",
                 "threat_intel_summary": "{{vars.description_section_header_template.format(\"Threat Intel Summary\")}}\n<table>\n<tr>\n{%for entry in vars.raw_reputations%}<td>\n<table style=\"border-color: #04080c;\" border=\"1\" class=\"font-normal\">\n    <tr><td>\n    <table style=\"color:white;font-size:11;\" >\n    <tr>\n    <td>\n    <html>\n      <head>\n        <title>Title of the document<\/title>\n        <style>\n          span.circle {\n            background: #2f3f51;\n            border-radius: 50%;\n            -moz-border-radius: 50%;\n            -webkit-border-radius: 50%;\n            display: inline-block;\n             font-weight: bold;\n            line-height: 70px;\n            margin-right: 5px;\n            text-align: center;\n            width: 100px;\n          font-size:15px;\n         border-color: Black;\n          }\n        <\/style>\n      <\/head>\n      <body><span class=\"circle\"><i style=\"font-size:46px;color:red \">\n        {{entry.cti_score}}<\/i><\/span>\n    <br>\n       <center>{{entry.cti_name}}<\/center>\n      <\/body>\n    <\/html>\n    <\/td>\n    <\/tr>\n    <\/table>\n    <\/td>\n    <\/tr>\n    <\/table>\n<\/td>\n{%endfor%}\n<\/tr>\n<\/table>"
             },
             "status": null,
@@ -159,6 +160,21 @@
             "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
             "uuid": "3c3f67a0-b84d-4d88-9714-4d038df97e4d",
             "id": 16315
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Compute Local Attributes",
+            "description": null,
+            "arguments": {
+                "__append_desc": "{{vars.local_ioc_attributes.update({\"description\":vars.description})}}",
+                "__append_reputation": "{{vars.local_ioc_attributes.update({\"reputation\":vars.Reputation_Type_IRI})}}"
+            },
+            "status": null,
+            "top": "1980",
+            "left": "640",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "7adc038d-23e4-4e7a-9982-7d9ab6208ebb",
+            "id": 16429
         },
         {
             "@type": "WorkflowStep",
@@ -194,7 +210,8 @@
             "name": "Compute Record Description",
             "description": null,
             "arguments": {
-                "description": "<table style=\"width:100%\">\n<tr><td>{{vars.threat_intel_summary}}<\/td><\/tr>\n{%for entry in vars.raw_reputations%}\n<tr><td>\n{{vars.description_section_header_template.format(entry.cti_name)}}\n{%for column in entry.enrichment_data%}\n{%if entry.enrichment_data|length > 0%}\n{%if (column.1|type_debug) == 'dict'%}\n<div style=\"float:left; border:2px solid grey; margin:5px;background-color: #1b2430; color:white;font-size:16;\"><h6 style=\"background:{{vars.table_color}};color:white;padding:5px;\">{{column.0}}<\/h2>    <p style=\"padding:1px;color:white;\">\n{{column.1|json2html(row_fields=[], template=\"Stylized with row selection\", display=\"Vertical\", styling=true, table_style={'th':'background-color:#22a6af !important;'})}}<\/p><\/div>\n{%else%}\n<div style=\"float:left; border:2px solid grey; margin:5px;background-color: #1b2430; color:white;font-size:16;\"><h6 style=\"background:{{vars.table_color}};color:white;padding:5px;\">{{column.0}}<\/h2>    <p style=\"padding:1px;color:white;\">\n   {{column.1}}<\/p><\/div>\n{%endif%}\n{%endif%}\n{%endfor%}\n<\/td><\/tr>\n{%endfor%}\n<\/table>"
+                "description": "<table style=\"width:100%\">\n<tr><td>{{vars.threat_intel_summary}}<\/td><\/tr>\n{%for entry in vars.raw_reputations%}\n<tr><td>\n{{vars.description_section_header_template.format(entry.cti_name)}}\n{%for column in entry.enrichment_data%}\n{%if entry.enrichment_data|length > 0%}\n{%if (column.1|type_debug) == 'dict'%}\n<div style=\"float:left; border:2px solid grey; margin:5px;background-color: #1b2430; color:white;font-size:16;\"><h6 style=\"background:{{vars.table_color}};color:white;padding:5px;\">{{column.0}}<\/h2>    <p style=\"padding:1px;color:white;\">\n{{column.1|json2html(row_fields=[], template=\"Stylized with row selection\", display=\"Vertical\", styling=true, table_style={'th':'background-color:#22a6af !important;'})}}<\/p><\/div>\n{%else%}\n<div style=\"float:left; border:2px solid grey; margin:5px;background-color: #1b2430; color:white;font-size:16;\"><h6 style=\"background:{{vars.table_color}};color:white;padding:5px;\">{{column.0}}<\/h2>    <p style=\"padding:1px;color:white;\">\n   {{column.1}}<\/p><\/div>\n{%endif%}\n{%endif%}\n{%endfor%}\n<\/td><\/tr>\n{%endfor%}\n<\/table>",
+                "__append_extra_attr": "{%if vars.ioc_attributes|length >0%}{%for entry in vars.ioc_attributes%}{{vars.local_ioc_attributes.update(entry )}}{%endfor%}{%endif%}"
             },
             "status": null,
             "top": "1300",
@@ -246,6 +263,7 @@
                 "googleMapAPIkey": "AIzaSyDy4tlleelMlMRB-HuBbgxeBMrfUJQF2ZE",
                 "foundIPMxReputation": "false",
                 "malicious_threshold": "3",
+                "local_ioc_attributes": "{}",
                 "foundAnomaliReputation": "false",
                 "foundIpStackReputation": "false",
                 "description_section_header_template": "<div class=\"font-size-11 ng-binding padding-bottom-sm\"><h4 style=\"background: #404142;padding: 5px;text-align: left;color: orange;background: black;\">{0}<\/h4><\/div>",
@@ -279,30 +297,25 @@
         },
         {
             "@type": "WorkflowStep",
-            "name": "Update Record",
+            "name": "Update Indicator",
             "description": null,
             "arguments": {
-                "resource": {
-                    "country": "\n",
-                    "reputation": "{{vars.Reputation_Type_IRI}}",
-                    "description": "{{vars.description}}"
+                "params": {
+                    "iri": "{{vars.input.records[0]['@id']}}",
+                    "body": "{{vars.local_ioc_attributes}}"
                 },
-                "_showJson": false,
-                "operation": "Overwrite",
-                "collection": "{{vars.input.records[0]['@id']}}",
-                "__recommend": [],
-                "collectionType": "\/api\/3\/indicators",
-                "fieldOperation": {
-                    "recordTags": "Append"
-                },
+                "version": "3.2.0",
+                "connector": "cyops_utilities",
+                "operation": "update_cyops_resource",
+                "operationTitle": "FSR: Update Record",
                 "step_variables": []
             },
             "status": null,
-            "top": "1980",
-            "left": "640",
-            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
-            "uuid": "cb546494-d553-48ab-a9dd-fc8b1e98b22f",
-            "id": 16305
+            "top": "2160",
+            "left": "840",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "cb11fa68-2ab0-4804-a912-a438bf3ae963",
+            "id": 16428
         },
         {
             "@type": "WorkflowStep",
@@ -549,12 +562,14 @@
                     {
                         "option": "Referenced",
                         "step_iri": "\/api\/3\/workflow_steps\/a58a6b82-2c7c-450c-ba22-4cf3455ef8dc",
-                        "condition": "{{ vars.input.params['indicator_value'] | length > 0 }}"
+                        "condition": "{{ vars.input.params['indicator_value'] | length > 0 }}",
+                        "step_name": "Summary"
                     },
                     {
                         "option": "Upon Create",
                         "default": true,
-                        "step_iri": "\/api\/3\/workflow_steps\/cb546494-d553-48ab-a9dd-fc8b1e98b22f"
+                        "step_iri": "\/api\/3\/workflow_steps\/7adc038d-23e4-4e7a-9982-7d9ab6208ebb",
+                        "step_name": "Compute Local Attributes"
                     }
                 ]
             },
@@ -575,15 +590,6 @@
             "label": "Suspicious",
             "isExecuted": false,
             "uuid": "02083f81-2298-4e69-a11b-9438b0dca809"
-        },
-        {
-            "@type": "WorkflowRoute",
-            "name": "Is Upon Create -> Update Record",
-            "targetStep": "\/api\/3\/workflow_steps\/cb546494-d553-48ab-a9dd-fc8b1e98b22f",
-            "sourceStep": "\/api\/3\/workflow_steps\/fb5b252f-dee5-438f-8de3-90269175da60",
-            "label": "Upon Create",
-            "isExecuted": false,
-            "uuid": "212f22a0-043a-42ab-b05d-e2b306fa991b"
         },
         {
             "@type": "WorkflowRoute",
@@ -614,6 +620,15 @@
         },
         {
             "@type": "WorkflowRoute",
+            "name": "Is Referenced -> Compute Local Attributes",
+            "targetStep": "\/api\/3\/workflow_steps\/7adc038d-23e4-4e7a-9982-7d9ab6208ebb",
+            "sourceStep": "\/api\/3\/workflow_steps\/fb5b252f-dee5-438f-8de3-90269175da60",
+            "label": "Upon Create",
+            "isExecuted": false,
+            "uuid": "550ffc0a-75ec-4783-8776-dacdbfcbfdae"
+        },
+        {
+            "@type": "WorkflowRoute",
             "name": "Indicator Type -> Preprocess IP Address Indicator",
             "targetStep": "\/api\/3\/workflow_steps\/cbe45f85-80eb-485c-b154-f5e09d4611f3",
             "sourceStep": "\/api\/3\/workflow_steps\/2f9a668f-b5fe-45b6-ba64-75247c79542c",
@@ -629,6 +644,15 @@
             "label": null,
             "isExecuted": false,
             "uuid": "688dcd15-82eb-449e-a1bb-1c3b3913a739"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Compute Local Attributes -> Update Indicator",
+            "targetStep": "\/api\/3\/workflow_steps\/cb11fa68-2ab0-4804-a912-a438bf3ae963",
+            "sourceStep": "\/api\/3\/workflow_steps\/7adc038d-23e4-4e7a-9982-7d9ab6208ebb",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "93d89e8e-445a-40e3-bdfb-059277efeccd"
         },
         {
             "@type": "WorkflowRoute",
@@ -784,7 +808,7 @@
     "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
     "createDate": 1649405370,
     "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
-    "modifyDate": 1649772331,
+    "modifyDate": 1649932870,
     "owners": [],
     "isPrivate": false
 }

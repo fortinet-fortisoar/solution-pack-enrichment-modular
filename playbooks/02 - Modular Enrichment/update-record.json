@@ -1,0 +1,110 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "update-record",
+    "aliasName": null,
+    "tag": null,
+    "description": null,
+    "isActive": true,
+    "debug": false,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [],
+    "synchronous": false,
+    "lastModifyDate": 1649925792,
+    "collection": "\/api\/3\/workflow_collections\/7d2ceeee-a36b-4015-8379-0779f92b8591",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/dc8cd2e6-2fd3-44bf-90ac-6c31c72d0c6d",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "route": "476f29f8-1378-499f-ae85-7bd00e02c148",
+                "resources": [
+                    "indicators"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                    "input": {
+                        "params": [],
+                        "records": "{{vars.input.records}}"
+                    }
+                },
+                "displayConditions": {
+                    "indicators": {
+                        "sort": [],
+                        "limit": 30,
+                        "logic": "AND",
+                        "filters": [
+                            {
+                                "type": "object",
+                                "field": "typeofindicator",
+                                "value": "\/api\/3\/picklists\/c0beeda4-2c7a-4214-b7e5-53ba1649539c",
+                                "_value": {
+                                    "@id": "\/api\/3\/picklists\/c0beeda4-2c7a-4214-b7e5-53ba1649539c",
+                                    "display": "IP Address",
+                                    "itemValue": "IP Address"
+                                },
+                                "operator": "eq"
+                            }
+                        ]
+                    }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": false,
+                "singleRecordExecution": true
+            },
+            "status": null,
+            "top": "40",
+            "left": "40",
+            "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+            "uuid": "dc8cd2e6-2fd3-44bf-90ac-6c31c72d0c6d",
+            "id": 16426
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Update",
+            "description": null,
+            "arguments": {
+                "params": {
+                    "iri": "{{vars.input.records[0]['@id']}}",
+                    "body": "{\"country\":\"Algeria\"}"
+                },
+                "version": "3.2.0",
+                "connector": "cyops_utilities",
+                "operation": "update_cyops_resource",
+                "operationTitle": "FSR: Update Record",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "247",
+            "left": "347",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "uuid": "f226ade2-d74c-449b-9ffd-6796722f27b4",
+            "id": 16427
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Update",
+            "targetStep": "\/api\/3\/workflow_steps\/f226ade2-d74c-449b-9ffd-6796722f27b4",
+            "sourceStep": "\/api\/3\/workflow_steps\/dc8cd2e6-2fd3-44bf-90ac-6c31c72d0c6d",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "aa3f8d94-4502-40f9-8f4b-84e5aeb8884b"
+        }
+    ],
+    "priority": "\/api\/3\/picklists\/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+    "uuid": "4e446f32-e655-4947-acc7-3ceef620019e",
+    "recordTags": [],
+    "id": 3175,
+    "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "createDate": 1649925496,
+    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+    "modifyDate": 1649925793,
+    "owners": [],
+    "isPrivate": false
+}

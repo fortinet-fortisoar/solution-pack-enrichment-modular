@@ -13,7 +13,7 @@
         "artifact"
     ],
     "synchronous": false,
-    "lastModifyDate": 1649405368,
+    "lastModifyDate": 1649926730,
     "collection": "\/api\/3\/workflow_collections\/7d2ceeee-a36b-4015-8379-0779f92b8591",
     "versions": [],
     "triggerStep": "\/api\/3\/workflow_steps\/94f42eac-a506-4e67-b0a5-15ab65415d7e",
@@ -107,6 +107,7 @@
             "arguments": {
                 "cti_name": "APIVoid",
                 "cti_score": "{{vars.apivoid_data.data.report.blacklists.detections}}",
+                "ioc_attributes": "{\"country\":\"{{vars.apivoid_data.data.report.information.country_name}}\/{{vars.apivoid_data.data.report.information.city_name}}\"}",
                 "enrichment_data": "{{vars.list_of_lists}}"
             },
             "status": null,
@@ -165,7 +166,7 @@
     "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
     "createDate": 1649405370,
     "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
-    "modifyDate": 1649405370,
+    "modifyDate": 1649926731,
     "owners": [],
     "isPrivate": false
 }
