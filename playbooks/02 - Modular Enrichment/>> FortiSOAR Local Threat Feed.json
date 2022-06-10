@@ -1,0 +1,150 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": ">> FortiSOAR Local Threat Feed",
+    "aliasName": null,
+    "tag": null,
+    "description": "Get and Format CTI from the Local Threat Feed DB",
+    "isActive": true,
+    "debug": true,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [
+        "artifact"
+    ],
+    "synchronous": false,
+    "collection": "\/api\/3\/workflow_collections\/4b99d834-23d8-4f4e-a4ba-0028baf4ce3b",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/287310d7-bcde-4a12-a690-0ad62760f1d0",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Output Data",
+            "description": null,
+            "arguments": {
+                "cti_name": "FortiSOAR_Threat_Feed",
+                "cti_score": "{%if vars.local_feeds_data|length > 0%}{{(vars.reputation_list|sum)\/(vars.reputation_list|length)}}{%else%}0{%endif%}",
+                "enrichment_data": "{{vars.list_of_lists}}"
+            },
+            "status": null,
+            "top": "435",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "bf4e183f-303b-4abb-b884-60d8f03fda9b"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "step_variables": {
+                    "input": {
+                        "params": []
+                    },
+                    "record": "{{vars.input.params['artifact']}}",
+                    "table_color": "#22a6af",
+                    "severity_map": "{\n'No Reputation Available':0,\n'TBD':0,\n'Good':0,\n'Suspicious':5,\n'Malicious':10\n}",
+                    "list_of_lists": "[]",
+                    "useMockOutput": "{{globalVars.Demo_mode}}",
+                    "reputation_list": "[]"
+                }
+            },
+            "status": null,
+            "top": "30",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
+            "uuid": "287310d7-bcde-4a12-a690-0ad62760f1d0"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Reputation Data Preprocess",
+            "description": null,
+            "arguments": {
+                "__raw_enrichment_data": "{%if vars.local_feeds_data|length > 0%}\n{%set raw_data=vars.local_feeds_data|json_query('[].{Label: label[0],Source: source,Pattern: pattern,Confidence: confidence,ValidFrom: validFrom,ExpiresOn: expiresOn,Description: description,KillChainPhases: killChainPhases[0].itemValue,ThreatTypes: threatTypes[0].itemValue}')%}\n{%for entry in raw_data%}\n{{vars.list_of_lists.append([entry.Source,entry])}}\n{%endfor%}\n{%else%}\n{{vars.list_of_lists.append([\"Local Threat Feed\",{\"Reputation\":\"Not Found\"}])}}\n{%endif%}",
+                "__create_repuationa_list": "{%if vars.local_feeds_data|length > 0%}\n{%set reputations=(vars.local_feeds_data|json_query('[].reputation.itemValue'))%}\n{%for rep in reputations%}\n{{vars.reputation_list.append(vars.severity_map[rep])}}\n{%endfor%}\n{%endif%}"
+            },
+            "status": null,
+            "top": "300",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "uuid": "0c2f33d2-66d9-4d59-8006-80aba5a92020"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get Local Threat Feeds",
+            "description": null,
+            "arguments": {
+                "query": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": [
+                        {
+                            "type": "primitive",
+                            "field": "value",
+                            "value": "{{vars.record}}",
+                            "operator": "eq",
+                            "_operator": "eq"
+                        }
+                    ]
+                },
+                "module": "threat_intel_feeds?$limit=30",
+                "mock_result": "{\n  \"result\": [\n    {\n      \"id\": \"9ba4db58-d7e9-5003-98c3-5c75b45de4d8\",\n      \"@id\": \"\/api\/3\/threat_intel_feeds\/0037c78f-ef41-4f70-962e-3ff553ef3f87\",\n      \"tLP\": null,\n      \"uuid\": \"0037c78f-ef41-4f70-962e-3ff553ef3f87\",\n      \"@type\": \"ThreatIntel\",\n      \"label\": [\n        \"threat_types:scanner\",\n        \"tags:Scanner\"\n      ],\n      \"value\": \"58.255.136.2\",\n      \"source\": \"FortiGuard Threat Intelligence\",\n      \"created\": 1654393175,\n      \"pattern\": \"\\\"[ipv4-addr:value = '58.255.136.2']\\\"\",\n      \"feedType\": \"indicator\",\n      \"lastSeen\": null,\n      \"modified\": 1654414774,\n      \"sourceId\": \"9ba4db58-d7e9-5003-98c3-5c75b45de4d8\",\n      \"expiresOn\": null,\n      \"validFrom\": 1654393175,\n      \"confidence\": 50,\n      \"recordTags\": [\n        \"Scanner\"\n      ],\n      \"reputation\": {\n        \"id\": 308,\n        \"@id\": \"\/api\/3\/picklists\/50bfd06c-9aff-4f7d-b6d9-821339e31fe7\",\n        \"icon\": null,\n        \"uuid\": \"50bfd06c-9aff-4f7d-b6d9-821339e31fe7\",\n        \"@type\": \"Picklist\",\n        \"color\": \"#dbc030\",\n        \"listName\": \"\/api\/3\/picklist_names\/e75ed3c3-9f23-4a43-832b-0daf236209ba\",\n        \"itemValue\": \"Suspicious\",\n        \"importedBy\": [],\n        \"orderIndex\": 2\n      },\n      \"sourceData\": {\n        \"id\": \"indicator--9ba4db58-d7e9-5003-98c3-5c75b45de4d8\",\n        \"name\": \"ip: 58.255.136.2\",\n        \"type\": \"indicator\",\n        \"labels\": [\n          \"threat_types:scanner\",\n          \"tags:Scanner\"\n        ],\n        \"created\": \"2022-06-05T01:39:35Z\",\n        \"pattern\": \"[ipv4-addr:value = '58.255.136.2']\",\n        \"modified\": \"2022-06-05T07:39:34Z\",\n        \"confidence\": 50,\n        \"valid_from\": \"2022-06-05T01:39:35Z\",\n        \"description\": \"threat_types:scanner; tags:Scanner\",\n        \"pattern_type\": \"stix\",\n        \"spec_version\": \"2.1\",\n        \"kill_chain_phases\": [\n          {\n            \"phase_name\": \"exploitation\",\n            \"kill_chain_name\": \"lockheed-martin-cyber-kill-chain\"\n          }\n        ]\n      },\n      \"typeOfFeed\": {\n        \"id\": 393,\n        \"@id\": \"\/api\/3\/picklists\/b788efc2-dadb-4448-9018-043b37266de4\",\n        \"icon\": null,\n        \"uuid\": \"b788efc2-dadb-4448-9018-043b37266de4\",\n        \"@type\": \"Picklist\",\n        \"color\": null,\n        \"listName\": \"\/api\/3\/picklist_names\/41d5146e-c882-4bfb-abdf-8e2d16c1895f\",\n        \"itemValue\": \"IP Address\",\n        \"importedBy\": [],\n        \"orderIndex\": 2\n      },\n      \"validUntil\": null,\n      \"description\": \"<p>threat_types:scanner; tags:Scanner<\/p>\",\n      \"specVersion\": \"2.1\",\n      \"threatTypes\": [\n        {\n          \"id\": 385,\n          \"@id\": \"\/api\/3\/picklists\/f3b1ebb2-45e0-4891-b054-9a897bf1c027\",\n          \"icon\": null,\n          \"uuid\": \"f3b1ebb2-45e0-4891-b054-9a897bf1c027\",\n          \"@type\": \"Picklist\",\n          \"color\": null,\n          \"listName\": \"\/api\/3\/picklist_names\/1ee087a5-c2b1-4dc6-a80c-393313159ad8\",\n          \"itemValue\": \"Scanner\",\n          \"importedBy\": [],\n          \"orderIndex\": 9\n        }\n      ],\n      \"killChainPhases\": [\n        {\n          \"id\": 331,\n          \"@id\": \"\/api\/3\/picklists\/1713c4c8-7e66-4bb9-bf46-096a9e2bc071\",\n          \"icon\": null,\n          \"uuid\": \"1713c4c8-7e66-4bb9-bf46-096a9e2bc071\",\n          \"@type\": \"Picklist\",\n          \"color\": null,\n          \"listName\": \"\/api\/3\/picklist_names\/eddbc863-c725-479a-867f-cec66206a6b4\",\n          \"itemValue\": \"Exploitation\",\n          \"importedBy\": [],\n          \"orderIndex\": 4\n        }\n      ]\n    },\n    {\n      \"id\": \"9ba4db58-d7e9-5003-98c3-5c75b45de4d8\",\n      \"@id\": \"\/api\/3\/threat_intel_feeds\/cae0293b-a4cf-4fd9-b430-dbead6966e12\",\n      \"tLP\": null,\n      \"uuid\": \"cae0293b-a4cf-4fd9-b430-dbead6966e12\",\n      \"@type\": \"ThreatIntel\",\n      \"label\": [\n        \"threat_types:scanner\",\n        \"tags:Scanner\"\n      ],\n      \"value\": \"58.255.136.2\",\n      \"source\": \"OTX\",\n      \"created\": 1654393175,\n      \"pattern\": \"\\\"[ipv4-addr:value = '58.255.136.2']\\\"\",\n      \"feedType\": \"indicator\",\n      \"lastSeen\": null,\n      \"modified\": 1654414774,\n      \"sourceId\": \"9ba4db58-d7e9-5003-98c3-5c75b45de4d8\",\n      \"expiresOn\": null,\n      \"validFrom\": 1654393175,\n      \"confidence\": 90,\n      \"recordTags\": [\n        \"Scanner\"\n      ],\n      \"reputation\": {\n        \"id\": 309,\n        \"@id\": \"\/api\/3\/picklists\/7074e547-7785-4979-be32-c6d0c863e4bd\",\n        \"icon\": null,\n        \"uuid\": \"7074e547-7785-4979-be32-c6d0c863e4bd\",\n        \"@type\": \"Picklist\",\n        \"color\": \"#c42323\",\n        \"listName\": \"\/api\/3\/picklist_names\/e75ed3c3-9f23-4a43-832b-0daf236209ba\",\n        \"itemValue\": \"Malicious\",\n        \"importedBy\": [],\n        \"orderIndex\": 1\n      },\n      \"sourceData\": {\n        \"id\": \"indicator--9ba4db58-d7e9-5003-98c3-5c75b45de4d8\",\n        \"name\": \"ip: 58.255.136.2\",\n        \"type\": \"indicator\",\n        \"labels\": [\n          \"threat_types:scanner\",\n          \"tags:Scanner\"\n        ],\n        \"created\": \"2022-06-05T01:39:35Z\",\n        \"pattern\": \"[ipv4-addr:value = '58.255.136.2']\",\n        \"modified\": \"2022-06-05T07:39:34Z\",\n        \"confidence\": 50,\n        \"valid_from\": \"2022-06-05T01:39:35Z\",\n        \"description\": \"threat_types:scanner; tags:Scanner\",\n        \"pattern_type\": \"stix\",\n        \"spec_version\": \"2.1\",\n        \"kill_chain_phases\": [\n          {\n            \"phase_name\": \"exploitation\",\n            \"kill_chain_name\": \"lockheed-martin-cyber-kill-chain\"\n          }\n        ]\n      },\n      \"typeOfFeed\": {\n        \"id\": 393,\n        \"@id\": \"\/api\/3\/picklists\/b788efc2-dadb-4448-9018-043b37266de4\",\n        \"icon\": null,\n        \"uuid\": \"b788efc2-dadb-4448-9018-043b37266de4\",\n        \"@type\": \"Picklist\",\n        \"color\": null,\n        \"listName\": \"\/api\/3\/picklist_names\/41d5146e-c882-4bfb-abdf-8e2d16c1895f\",\n        \"itemValue\": \"IP Address\",\n        \"importedBy\": [],\n        \"orderIndex\": 2\n      },\n      \"validUntil\": null,\n      \"description\": \"<p>threat_types:scanner; tags:Scanner<\/p>\",\n      \"specVersion\": \"2.1\",\n      \"threatTypes\": [\n        {\n          \"id\": 385,\n          \"@id\": \"\/api\/3\/picklists\/f3b1ebb2-45e0-4891-b054-9a897bf1c027\",\n          \"icon\": null,\n          \"uuid\": \"f3b1ebb2-45e0-4891-b054-9a897bf1c027\",\n          \"@type\": \"Picklist\",\n          \"color\": null,\n          \"listName\": \"\/api\/3\/picklist_names\/1ee087a5-c2b1-4dc6-a80c-393313159ad8\",\n          \"itemValue\": \"Scanner\",\n          \"importedBy\": [],\n          \"orderIndex\": 9\n        }\n      ],\n      \"killChainPhases\": [\n        {\n          \"id\": 331,\n          \"@id\": \"\/api\/3\/picklists\/1713c4c8-7e66-4bb9-bf46-096a9e2bc071\",\n          \"icon\": null,\n          \"uuid\": \"1713c4c8-7e66-4bb9-bf46-096a9e2bc071\",\n          \"@type\": \"Picklist\",\n          \"color\": null,\n          \"listName\": \"\/api\/3\/picklist_names\/eddbc863-c725-479a-867f-cec66206a6b4\",\n          \"itemValue\": \"Exploitation\",\n          \"importedBy\": [],\n          \"orderIndex\": 4\n        }\n      ]\n    }\n  ],\n  \"status\": \"finished\"\n}",
+                "step_variables": {
+                    "local_feeds_data": "{{vars.result.result}}"
+                }
+            },
+            "status": null,
+            "top": "165",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928770",
+            "uuid": "b560e44b-e52a-4a46-ad3c-db7baa685b68"
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get Local Threat Feeds -> Reputation Data Preprocess",
+            "targetStep": "\/api\/3\/workflow_steps\/0c2f33d2-66d9-4d59-8006-80aba5a92020",
+            "sourceStep": "\/api\/3\/workflow_steps\/b560e44b-e52a-4a46-ad3c-db7baa685b68",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "a649ea27-26cd-4403-82e3-3ba5872010e2"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Reputation Data Preprocess -> Output Data",
+            "targetStep": "\/api\/3\/workflow_steps\/bf4e183f-303b-4abb-b884-60d8f03fda9b",
+            "sourceStep": "\/api\/3\/workflow_steps\/0c2f33d2-66d9-4d59-8006-80aba5a92020",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "26d65659-7f00-4ca6-a509-a62cfc071e74"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Get Local Threat Feeds",
+            "targetStep": "\/api\/3\/workflow_steps\/b560e44b-e52a-4a46-ad3c-db7baa685b68",
+            "sourceStep": "\/api\/3\/workflow_steps\/287310d7-bcde-4a12-a690-0ad62760f1d0",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "61c88d86-0e0a-461e-b3db-4d01e51504ec"
+        }
+    ],
+    "priority": "\/api\/3\/picklists\/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+    "uuid": "1583a90f-8270-482b-b144-027c97f4b01c",
+    "owners": [],
+    "isPrivate": false,
+    "deletedAt": null,
+    "recordTags": [
+        "Subroutine",
+        "Domain_Enrichment",
+        "Hashcode_Enrichment",
+        "URL_Enrichment",
+        "IP_Enrichment",
+        "Email_Enrichment",
+        "Host_Enrichment",
+        "File_Enrichment",
+        "Registry_Enrichment",
+        "Process_Enrichment"
+    ]
+}

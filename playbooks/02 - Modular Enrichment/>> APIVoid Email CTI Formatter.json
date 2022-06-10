@@ -13,10 +13,9 @@
         "artifact"
     ],
     "synchronous": false,
-    "lastModifyDate": 1649767764,
-    "collection": "\/api\/3\/workflow_collections\/7d2ceeee-a36b-4015-8379-0779f92b8591",
+    "collection": "\/api\/3\/workflow_collections\/4b99d834-23d8-4f4e-a4ba-0028baf4ce3b",
     "versions": [],
-    "triggerStep": "\/api\/3\/workflow_steps\/58ff4007-3924-4534-8f0a-be7bed2a5538",
+    "triggerStep": "\/api\/3\/workflow_steps\/d1d70d90-063a-4c95-ad3e-8b735517cf4d",
     "steps": [
         {
             "@type": "WorkflowStep",
@@ -31,8 +30,7 @@
             "top": "435",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-            "uuid": "02cc6fc9-898f-47d8-b4e9-30cb20ada083",
-            "id": 16277
+            "uuid": "8cc8332e-8044-4dda-968f-d87f4795cd06"
         },
         {
             "@type": "WorkflowStep",
@@ -53,8 +51,7 @@
             "top": "30",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
-            "uuid": "58ff4007-3924-4534-8f0a-be7bed2a5538",
-            "id": 16280
+            "uuid": "d1d70d90-063a-4c95-ad3e-8b735517cf4d"
         },
         {
             "@type": "WorkflowStep",
@@ -69,7 +66,7 @@
                 "version": "1.0.0",
                 "connector": "apivoid",
                 "operation": "emailverify",
-                "mock_result": "{\n  \"data\": {\n    \"result\": {\n      \"data\": {\n        \"email\": \"00finness00@gmail.com\",\n        \"score\": 100,\n        \"domain\": \"gmail.com\",\n        \"username\": \"00finness00\",\n        \"risky_tld\": false,\n        \"valid_tld\": true,\n        \"disposable\": false,\n        \"free_email\": true,\n        \"did_you_mean\": \"\",\n        \"is_spoofable\": false,\n        \"role_address\": false,\n        \"should_block\": false,\n        \"valid_format\": true,\n        \"has_a_records\": true,\n        \"police_domain\": false,\n        \"dmarc_enforced\": false,\n        \"domain_popular\": true,\n        \"has_mx_records\": true,\n        \"has_spf_records\": true,\n        \"china_free_email\": false,\n        \"dmarc_configured\": true,\n        \"suspicious_email\": false,\n        \"government_domain\": false,\n        \"suspicious_domain\": false,\n        \"dirty_words_domain\": false,\n        \"educational_domain\": false,\n        \"russian_free_email\": false,\n        \"suspicious_username\": false,\n        \"dirty_words_username\": false\n      },\n      \"success\": true,\n      \"elapsed_time\": \"0.05\",\n      \"credits_remained\": 10.38,\n      \"estimated_queries\": \"173\"\n    },\n    \"status\": \"Success\"\n  },\n  \"status\": \"Success\",\n  \"message\": \"\",\n  \"operation\": null\n}",
+                "mock_result": "{\n  \"data\": {\n    \"result\": {\n      \"data\": {\n        \"email\": \"00finness00@gmail.com\",\n        \"score\": 0,\n        \"domain\": \"gmail.com\",\n        \"username\": \"00finness00\",\n        \"risky_tld\": false,\n        \"valid_tld\": true,\n        \"disposable\": false,\n        \"free_email\": true,\n        \"did_you_mean\": \"\",\n        \"is_spoofable\": false,\n        \"role_address\": false,\n        \"should_block\": false,\n        \"valid_format\": true,\n        \"has_a_records\": true,\n        \"police_domain\": false,\n        \"dmarc_enforced\": false,\n        \"domain_popular\": true,\n        \"has_mx_records\": true,\n        \"has_spf_records\": true,\n        \"china_free_email\": false,\n        \"dmarc_configured\": true,\n        \"suspicious_email\": false,\n        \"government_domain\": false,\n        \"suspicious_domain\": false,\n        \"dirty_words_domain\": false,\n        \"educational_domain\": false,\n        \"russian_free_email\": false,\n        \"suspicious_username\": false,\n        \"dirty_words_username\": false\n      },\n      \"success\": true,\n      \"elapsed_time\": \"0.05\",\n      \"credits_remained\": 10.38,\n      \"estimated_queries\": \"173\"\n    },\n    \"status\": \"Success\"\n  },\n  \"status\": \"Success\",\n  \"message\": \"\",\n  \"operation\": null\n}",
                 "operationTitle": "Get Email Reputation",
                 "pickFromTenant": false,
                 "step_variables": {
@@ -80,8 +77,7 @@
             "top": "165",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
-            "uuid": "d463b8d6-4112-430d-bea6-30844de3142f",
-            "id": 16279
+            "uuid": "a4c781ec-8832-46e5-aa9b-f3dce5ff76ca"
         },
         {
             "@type": "WorkflowStep",
@@ -94,50 +90,45 @@
             "top": "300",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-            "uuid": "ff299b48-1e24-44c4-968e-bfc7f055acfb",
-            "id": 16278
+            "uuid": "c31fa2f4-795b-4f83-be4c-d928586ba407"
         }
     ],
     "routes": [
         {
             "@type": "WorkflowRoute",
             "name": "Start -> get IP Reputation",
-            "targetStep": "\/api\/3\/workflow_steps\/d463b8d6-4112-430d-bea6-30844de3142f",
-            "sourceStep": "\/api\/3\/workflow_steps\/58ff4007-3924-4534-8f0a-be7bed2a5538",
+            "targetStep": "\/api\/3\/workflow_steps\/a4c781ec-8832-46e5-aa9b-f3dce5ff76ca",
+            "sourceStep": "\/api\/3\/workflow_steps\/d1d70d90-063a-4c95-ad3e-8b735517cf4d",
             "label": null,
             "isExecuted": false,
-            "uuid": "5cbbfbed-84bb-41c8-a4a5-edf7aea60c68"
+            "uuid": "e671fddc-c178-42ba-98a8-b06a66d87ee3"
         },
         {
             "@type": "WorkflowRoute",
             "name": "get Email Reputation -> Reputation Data Preprocess",
-            "targetStep": "\/api\/3\/workflow_steps\/ff299b48-1e24-44c4-968e-bfc7f055acfb",
-            "sourceStep": "\/api\/3\/workflow_steps\/d463b8d6-4112-430d-bea6-30844de3142f",
+            "targetStep": "\/api\/3\/workflow_steps\/c31fa2f4-795b-4f83-be4c-d928586ba407",
+            "sourceStep": "\/api\/3\/workflow_steps\/a4c781ec-8832-46e5-aa9b-f3dce5ff76ca",
             "label": null,
             "isExecuted": false,
-            "uuid": "907032d7-89b9-427b-971d-d260be3ea644"
+            "uuid": "0e35dc0e-9b52-42a0-9648-0ae5abe2c610"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Reputation Data Preprocess -> Output Data",
-            "targetStep": "\/api\/3\/workflow_steps\/02cc6fc9-898f-47d8-b4e9-30cb20ada083",
-            "sourceStep": "\/api\/3\/workflow_steps\/ff299b48-1e24-44c4-968e-bfc7f055acfb",
+            "targetStep": "\/api\/3\/workflow_steps\/8cc8332e-8044-4dda-968f-d87f4795cd06",
+            "sourceStep": "\/api\/3\/workflow_steps\/c31fa2f4-795b-4f83-be4c-d928586ba407",
             "label": null,
             "isExecuted": false,
-            "uuid": "05209026-9947-4baf-882c-11ed3cd186dc"
+            "uuid": "0a125454-37b2-4443-b1c5-c2ee0df0d8ab"
         }
     ],
     "priority": "\/api\/3\/picklists\/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
-    "uuid": "6f2b9b24-59f5-44ab-8684-db72ffb53ed9",
+    "uuid": "ca0b60a7-2ed9-4dcc-adf1-28dc47a94bb4",
+    "owners": [],
+    "isPrivate": false,
+    "deletedAt": null,
     "recordTags": [
         "Subroutine",
         "Email_Enrichment"
-    ],
-    "id": 3159,
-    "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
-    "createDate": 1649405370,
-    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
-    "modifyDate": 1649767764,
-    "owners": [],
-    "isPrivate": false
+    ]
 }

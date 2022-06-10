@@ -1,0 +1,1 @@
+- Implement connectors error handling

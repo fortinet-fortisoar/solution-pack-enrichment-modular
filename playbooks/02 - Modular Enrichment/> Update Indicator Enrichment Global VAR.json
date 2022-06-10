@@ -13,10 +13,9 @@
         "indicator_tag"
     ],
     "synchronous": false,
-    "lastModifyDate": 1649406266,
-    "collection": "\/api\/3\/workflow_collections\/7d2ceeee-a36b-4015-8379-0779f92b8591",
+    "collection": "\/api\/3\/workflow_collections\/4b99d834-23d8-4f4e-a4ba-0028baf4ce3b",
     "versions": [],
-    "triggerStep": "\/api\/3\/workflow_steps\/64a90c5a-c5a1-4e29-b0a8-3f2bacb58cd4",
+    "triggerStep": "\/api\/3\/workflow_steps\/d4df3d01-76c3-450c-9ca0-f90356fc4524",
     "steps": [
         {
             "@type": "WorkflowStep",
@@ -39,8 +38,7 @@
             "top": "165",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
-            "uuid": "04b324d4-fe62-454a-b363-76478946e348",
-            "id": 16149
+            "uuid": "d479bddf-71a6-47a2-81b4-a65d92a0cfb6"
         },
         {
             "@type": "WorkflowStep",
@@ -57,8 +55,7 @@
             "top": "30",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
-            "uuid": "64a90c5a-c5a1-4e29-b0a8-3f2bacb58cd4",
-            "id": 16147
+            "uuid": "d4df3d01-76c3-450c-9ca0-f90356fc4524"
         },
         {
             "@type": "WorkflowStep",
@@ -79,41 +76,36 @@
             "top": "300",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
-            "uuid": "702c25c7-a7c8-4b47-ae6a-c3b722140fe1",
-            "id": 16148
+            "uuid": "84b55be5-2fa4-43d9-8727-3ef89734fd6a"
         }
     ],
     "routes": [
         {
             "@type": "WorkflowRoute",
             "name": "Start -> Get Workflows",
-            "targetStep": "\/api\/3\/workflow_steps\/04b324d4-fe62-454a-b363-76478946e348",
-            "sourceStep": "\/api\/3\/workflow_steps\/64a90c5a-c5a1-4e29-b0a8-3f2bacb58cd4",
+            "targetStep": "\/api\/3\/workflow_steps\/d479bddf-71a6-47a2-81b4-a65d92a0cfb6",
+            "sourceStep": "\/api\/3\/workflow_steps\/d4df3d01-76c3-450c-9ca0-f90356fc4524",
             "label": null,
             "isExecuted": false,
-            "uuid": "5cceaf21-37f6-4675-98e9-29f8db2f8560"
+            "uuid": "492a1fb6-c7a2-45b8-9dab-20a0bc5758c6"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Get Workflows -> Update IP Indicators Enrichment Global Variable",
-            "targetStep": "\/api\/3\/workflow_steps\/702c25c7-a7c8-4b47-ae6a-c3b722140fe1",
-            "sourceStep": "\/api\/3\/workflow_steps\/04b324d4-fe62-454a-b363-76478946e348",
+            "targetStep": "\/api\/3\/workflow_steps\/84b55be5-2fa4-43d9-8727-3ef89734fd6a",
+            "sourceStep": "\/api\/3\/workflow_steps\/d479bddf-71a6-47a2-81b4-a65d92a0cfb6",
             "label": null,
             "isExecuted": false,
-            "uuid": "5c11c036-2dd0-4540-b540-9e2c4bf8a449"
+            "uuid": "b8d9da63-cdf9-4e16-afc8-9e62f6a64a0f"
         }
     ],
     "priority": "\/api\/3\/picklists\/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
-    "uuid": "0278ae02-af0f-466a-8e47-7baf668e3684",
+    "uuid": "1bc7269e-b600-45fe-a110-117195753044",
+    "owners": [],
+    "isPrivate": false,
+    "deletedAt": null,
     "recordTags": [
         "Enrichment",
         "Utility"
-    ],
-    "id": 3145,
-    "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
-    "createDate": 1649405370,
-    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
-    "modifyDate": 1649406266,
-    "owners": [],
-    "isPrivate": false
+    ]
 }

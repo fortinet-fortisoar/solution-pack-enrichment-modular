@@ -13,10 +13,9 @@
         "artifact"
     ],
     "synchronous": false,
-    "lastModifyDate": 1649767894,
-    "collection": "\/api\/3\/workflow_collections\/7d2ceeee-a36b-4015-8379-0779f92b8591",
+    "collection": "\/api\/3\/workflow_collections\/4b99d834-23d8-4f4e-a4ba-0028baf4ce3b",
     "versions": [],
-    "triggerStep": "\/api\/3\/workflow_steps\/8e716821-4b2e-4408-9212-c320b8edf1f4",
+    "triggerStep": "\/api\/3\/workflow_steps\/24f16e07-0dd8-470d-82cb-00ebe1c2e997",
     "steps": [
         {
             "@type": "WorkflowStep",
@@ -35,8 +34,7 @@
             "top": "300",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-            "uuid": "01d7da54-1519-442a-a0c7-d7cef3421c9e",
-            "id": 16161
+            "uuid": "899d3afb-cbbc-406c-9c12-0599f3d3240c"
         },
         {
             "@type": "WorkflowStep",
@@ -57,8 +55,7 @@
             "top": "30",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
-            "uuid": "8e716821-4b2e-4408-9212-c320b8edf1f4",
-            "id": 16160
+            "uuid": "24f16e07-0dd8-470d-82cb-00ebe1c2e997"
         },
         {
             "@type": "WorkflowStep",
@@ -73,8 +70,7 @@
             "top": "435",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-            "uuid": "90f61622-7b5f-461c-947e-c7349f3d37f8",
-            "id": 16403
+            "uuid": "ff160903-0b24-4f92-9b4e-c6bffd83c1d3"
         },
         {
             "@type": "WorkflowStep",
@@ -366,50 +362,45 @@
             "top": "165",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
-            "uuid": "b488df0a-3bf2-4f8a-bebb-081f979eadd9",
-            "id": 16162
+            "uuid": "1f256ffc-6079-469f-a304-f232b6c39376"
         }
     ],
     "routes": [
         {
             "@type": "WorkflowRoute",
             "name": "Get File Reputation -> Set Results and Compute Details",
-            "targetStep": "\/api\/3\/workflow_steps\/01d7da54-1519-442a-a0c7-d7cef3421c9e",
-            "sourceStep": "\/api\/3\/workflow_steps\/b488df0a-3bf2-4f8a-bebb-081f979eadd9",
+            "targetStep": "\/api\/3\/workflow_steps\/899d3afb-cbbc-406c-9c12-0599f3d3240c",
+            "sourceStep": "\/api\/3\/workflow_steps\/1f256ffc-6079-469f-a304-f232b6c39376",
             "label": null,
             "isExecuted": false,
-            "uuid": "77d9b17a-8c73-4765-8aac-555a6827868b"
+            "uuid": "9652770f-f52c-4303-8df5-068bbff15c68"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Start -> Get File Reputation",
-            "targetStep": "\/api\/3\/workflow_steps\/b488df0a-3bf2-4f8a-bebb-081f979eadd9",
-            "sourceStep": "\/api\/3\/workflow_steps\/8e716821-4b2e-4408-9212-c320b8edf1f4",
+            "targetStep": "\/api\/3\/workflow_steps\/1f256ffc-6079-469f-a304-f232b6c39376",
+            "sourceStep": "\/api\/3\/workflow_steps\/24f16e07-0dd8-470d-82cb-00ebe1c2e997",
             "label": null,
             "isExecuted": false,
-            "uuid": "a113d323-40ab-4d95-9bca-76398acdcf69"
+            "uuid": "5214d2ca-cec2-4ac5-9850-5623a72e73b5"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Set Results and Compute Details -> Copy  of Output Data",
-            "targetStep": "\/api\/3\/workflow_steps\/90f61622-7b5f-461c-947e-c7349f3d37f8",
-            "sourceStep": "\/api\/3\/workflow_steps\/01d7da54-1519-442a-a0c7-d7cef3421c9e",
+            "targetStep": "\/api\/3\/workflow_steps\/ff160903-0b24-4f92-9b4e-c6bffd83c1d3",
+            "sourceStep": "\/api\/3\/workflow_steps\/899d3afb-cbbc-406c-9c12-0599f3d3240c",
             "label": null,
             "isExecuted": false,
-            "uuid": "dc8da2e6-2d2b-4df3-b43b-47af2fa5fac4"
+            "uuid": "396e048b-f227-40c7-9eb6-ac63374c4bbf"
         }
     ],
     "priority": "\/api\/3\/picklists\/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
-    "uuid": "241be2c3-d4a6-4553-9106-a4b989e494af",
+    "uuid": "ea949d12-1fc5-4014-936b-fecf5436a7f1",
+    "owners": [],
+    "isPrivate": false,
+    "deletedAt": null,
     "recordTags": [
         "Subroutine",
         "Hashcode_Enrichment"
-    ],
-    "id": 3148,
-    "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
-    "createDate": 1649405370,
-    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
-    "modifyDate": 1649767895,
-    "owners": [],
-    "isPrivate": false
+    ]
 }

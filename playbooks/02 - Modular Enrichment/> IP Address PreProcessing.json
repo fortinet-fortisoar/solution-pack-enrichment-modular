@@ -14,10 +14,9 @@
         "record_iri"
     ],
     "synchronous": false,
-    "lastModifyDate": 1649769964,
-    "collection": "\/api\/3\/workflow_collections\/7d2ceeee-a36b-4015-8379-0779f92b8591",
+    "collection": "\/api\/3\/workflow_collections\/4b99d834-23d8-4f4e-a4ba-0028baf4ce3b",
     "versions": [],
-    "triggerStep": "\/api\/3\/workflow_steps\/12d6b4df-7389-4c35-b714-b4d1689cbad0",
+    "triggerStep": "\/api\/3\/workflow_steps\/671e5d8f-2077-4806-b40e-18b302ee91b4",
     "steps": [
         {
             "@type": "WorkflowStep",
@@ -34,8 +33,7 @@
             "top": "60",
             "left": "600",
             "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
-            "uuid": "12d6b4df-7389-4c35-b714-b4d1689cbad0",
-            "id": 16360
+            "uuid": "671e5d8f-2077-4806-b40e-18b302ee91b4"
         },
         {
             "@type": "WorkflowStep",
@@ -56,8 +54,7 @@
             "top": "660",
             "left": "400",
             "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
-            "uuid": "407376c9-1a90-437f-9d98-9ef947261ca2",
-            "id": 16362
+            "uuid": "a7d7a5d3-58c8-4b4b-ad65-fc4ec1c4be65"
         },
         {
             "@type": "WorkflowStep",
@@ -68,12 +65,12 @@
                     {
                         "option": "no",
                         "default": true,
-                        "step_iri": "\/api\/3\/workflow_steps\/9c3a2e15-8d31-4547-ab35-9da47d202cdc",
+                        "step_iri": "\/api\/3\/workflow_steps\/fb4560cb-87c5-4cc4-b5aa-6135741f824b",
                         "step_name": "Summary"
                     },
                     {
                         "option": "yes",
-                        "step_iri": "\/api\/3\/workflow_steps\/f90d4408-8407-4948-bbf7-4cfe96209efd",
+                        "step_iri": "\/api\/3\/workflow_steps\/6ad499e7-871f-4165-b0c7-4e5ab567d4e4",
                         "condition": "{{ vars.steps.Match_IP_in_Internal_Subnets.data['matched_cidr_ip']|length > 0 }}",
                         "step_name": "Reverse DNS"
                     }
@@ -83,8 +80,7 @@
             "top": "420",
             "left": "600",
             "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
-            "uuid": "480a1532-2b1c-4f97-ad06-5fd22e5c7052",
-            "id": 16367
+            "uuid": "8884226f-6149-4ebb-8a72-0ed1f25ae513"
         },
         {
             "@type": "WorkflowStep",
@@ -105,8 +101,7 @@
             "top": "300",
             "left": "600",
             "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
-            "uuid": "487f5bd9-a725-4ebb-abb5-76f499337c82",
-            "id": 16368
+            "uuid": "9481a308-bf8b-42fb-85d1-18516205331b"
         },
         {
             "@type": "WorkflowStep",
@@ -116,14 +111,14 @@
                 "conditions": [
                     {
                         "option": "Referenced",
-                        "step_iri": "\/api\/3\/workflow_steps\/e66ea85d-ebef-407a-a8ff-60938f155e2e",
+                        "step_iri": "\/api\/3\/workflow_steps\/20fc25bf-6f45-4083-8f31-5f94a2982c46",
                         "condition": "{{ vars.input.params['indicator_value'] | length > 0 }}",
                         "step_name": "Copy  of Summary"
                     },
                     {
                         "option": "Upon Create",
                         "default": true,
-                        "step_iri": "\/api\/3\/workflow_steps\/a7a25e01-65d2-44ce-bc03-5571911a07f6",
+                        "step_iri": "\/api\/3\/workflow_steps\/87743e3d-2ac0-4763-bbbd-a0a0366cbad8",
                         "step_name": "Update Record"
                     }
                 ]
@@ -132,8 +127,7 @@
             "top": "900",
             "left": "400",
             "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
-            "uuid": "7c3124af-c6a3-46a0-9e12-0c60d3b228aa",
-            "id": 16364
+            "uuid": "9cb41804-143d-4695-96c4-86fa47531fcc"
         },
         {
             "@type": "WorkflowStep",
@@ -146,8 +140,7 @@
             "top": "540",
             "left": "780",
             "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-            "uuid": "9c3a2e15-8d31-4547-ab35-9da47d202cdc",
-            "id": 16365
+            "uuid": "fb4560cb-87c5-4cc4-b5aa-6135741f824b"
         },
         {
             "@type": "WorkflowStep",
@@ -174,8 +167,7 @@
             "top": "1040",
             "left": "400",
             "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
-            "uuid": "a7a25e01-65d2-44ce-bc03-5571911a07f6",
-            "id": 16366
+            "uuid": "87743e3d-2ac0-4763-bbbd-a0a0366cbad8"
         },
         {
             "@type": "WorkflowStep",
@@ -189,8 +181,7 @@
             "top": "180",
             "left": "600",
             "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-            "uuid": "b7c5a7ac-0201-4dd4-b9f0-39042529a142",
-            "id": 16371
+            "uuid": "2c4a8d6e-5985-4c1b-9c50-df1baade8055"
         },
         {
             "@type": "WorkflowStep",
@@ -204,8 +195,7 @@
             "top": "780",
             "left": "400",
             "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-            "uuid": "e453f738-4008-4859-9fcd-e1d110c1ac00",
-            "id": 16363
+            "uuid": "9c4f3d80-8c4d-4913-b043-cc2b77535a84"
         },
         {
             "@type": "WorkflowStep",
@@ -221,8 +211,7 @@
             "top": "980",
             "left": "780",
             "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-            "uuid": "e66ea85d-ebef-407a-a8ff-60938f155e2e",
-            "id": 16399
+            "uuid": "20fc25bf-6f45-4083-8f31-5f94a2982c46"
         },
         {
             "@type": "WorkflowStep",
@@ -245,119 +234,116 @@
             "top": "540",
             "left": "400",
             "stepType": "\/api\/3\/workflow_step_types\/1fdd14cc-d6b4-4335-a3af-ab49c8ed2fd8",
-            "uuid": "f90d4408-8407-4948-bbf7-4cfe96209efd",
-            "id": 16370
+            "uuid": "6ad499e7-871f-4165-b0c7-4e5ab567d4e4"
         }
     ],
     "routes": [
         {
             "@type": "WorkflowRoute",
             "name": "Is IP Private -> Summary",
-            "targetStep": "\/api\/3\/workflow_steps\/9c3a2e15-8d31-4547-ab35-9da47d202cdc",
-            "sourceStep": "\/api\/3\/workflow_steps\/480a1532-2b1c-4f97-ad06-5fd22e5c7052",
+            "targetStep": "\/api\/3\/workflow_steps\/fb4560cb-87c5-4cc4-b5aa-6135741f824b",
+            "sourceStep": "\/api\/3\/workflow_steps\/8884226f-6149-4ebb-8a72-0ed1f25ae513",
             "label": "no",
             "isExecuted": false,
-            "uuid": "89361299-020c-4f38-b35c-d0f805ecf7c3"
+            "uuid": "094245ba-fac9-42a3-ba38-3d24f72a4efb"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Update Record -> Copy  of Summary",
-            "targetStep": "\/api\/3\/workflow_steps\/e66ea85d-ebef-407a-a8ff-60938f155e2e",
-            "sourceStep": "\/api\/3\/workflow_steps\/a7a25e01-65d2-44ce-bc03-5571911a07f6",
+            "targetStep": "\/api\/3\/workflow_steps\/20fc25bf-6f45-4083-8f31-5f94a2982c46",
+            "sourceStep": "\/api\/3\/workflow_steps\/87743e3d-2ac0-4763-bbbd-a0a0366cbad8",
             "label": null,
             "isExecuted": false,
-            "uuid": "53f0f5c6-cbe4-410d-a0ca-2bbb608b8406"
+            "uuid": "e79e5cab-2538-4d42-85b5-312b78db77d5"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Is Referenced -> Copy  of Summary",
-            "targetStep": "\/api\/3\/workflow_steps\/e66ea85d-ebef-407a-a8ff-60938f155e2e",
-            "sourceStep": "\/api\/3\/workflow_steps\/7c3124af-c6a3-46a0-9e12-0c60d3b228aa",
+            "targetStep": "\/api\/3\/workflow_steps\/20fc25bf-6f45-4083-8f31-5f94a2982c46",
+            "sourceStep": "\/api\/3\/workflow_steps\/9cb41804-143d-4695-96c4-86fa47531fcc",
             "label": "Referenced",
             "isExecuted": false,
-            "uuid": "aac1929b-5d93-467b-915f-4708954975b8"
+            "uuid": "b8156622-cc01-4f11-8fea-ea3404bea127"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Is Referenced -> Update Record",
-            "targetStep": "\/api\/3\/workflow_steps\/a7a25e01-65d2-44ce-bc03-5571911a07f6",
-            "sourceStep": "\/api\/3\/workflow_steps\/7c3124af-c6a3-46a0-9e12-0c60d3b228aa",
+            "targetStep": "\/api\/3\/workflow_steps\/87743e3d-2ac0-4763-bbbd-a0a0366cbad8",
+            "sourceStep": "\/api\/3\/workflow_steps\/9cb41804-143d-4695-96c4-86fa47531fcc",
             "label": "Upon Create",
             "isExecuted": false,
-            "uuid": "8eeb02b6-c520-46a8-ab55-e4c8c6e86103"
+            "uuid": "a29c199a-4926-4e4a-8dd2-80b7d1ebf915"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Match IP in Internal Subnets -> Is IP Private",
-            "targetStep": "\/api\/3\/workflow_steps\/480a1532-2b1c-4f97-ad06-5fd22e5c7052",
-            "sourceStep": "\/api\/3\/workflow_steps\/487f5bd9-a725-4ebb-abb5-76f499337c82",
+            "targetStep": "\/api\/3\/workflow_steps\/8884226f-6149-4ebb-8a72-0ed1f25ae513",
+            "sourceStep": "\/api\/3\/workflow_steps\/9481a308-bf8b-42fb-85d1-18516205331b",
             "label": null,
             "isExecuted": false,
-            "uuid": "d27031a9-45d9-48e5-8ef4-a66b8858e1ca"
+            "uuid": "5fbdde0d-2e1e-4d0f-9752-4b69e3157094"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Set No Reputation for Private IP -> Is Referenced",
-            "targetStep": "\/api\/3\/workflow_steps\/7c3124af-c6a3-46a0-9e12-0c60d3b228aa",
-            "sourceStep": "\/api\/3\/workflow_steps\/e453f738-4008-4859-9fcd-e1d110c1ac00",
+            "targetStep": "\/api\/3\/workflow_steps\/9cb41804-143d-4695-96c4-86fa47531fcc",
+            "sourceStep": "\/api\/3\/workflow_steps\/9c4f3d80-8c4d-4913-b043-cc2b77535a84",
             "label": null,
             "isExecuted": false,
-            "uuid": "b20f8a9b-9e4e-4168-9f4f-c463ec3914fd"
+            "uuid": "27832369-6497-4b4f-82ba-624791c4ad41"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Compute Private IP Summary -> Set No Reputation for Private IP",
-            "targetStep": "\/api\/3\/workflow_steps\/e453f738-4008-4859-9fcd-e1d110c1ac00",
-            "sourceStep": "\/api\/3\/workflow_steps\/407376c9-1a90-437f-9d98-9ef947261ca2",
+            "targetStep": "\/api\/3\/workflow_steps\/9c4f3d80-8c4d-4913-b043-cc2b77535a84",
+            "sourceStep": "\/api\/3\/workflow_steps\/a7d7a5d3-58c8-4b4b-ad65-fc4ec1c4be65",
             "label": null,
             "isExecuted": false,
-            "uuid": "a61ecaf5-1d87-479a-9e48-03208c281ffc"
+            "uuid": "9edce149-69e5-4cbd-a4ae-9aa6990e6657"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Is IP Private -> Reverse DNS",
-            "targetStep": "\/api\/3\/workflow_steps\/f90d4408-8407-4948-bbf7-4cfe96209efd",
-            "sourceStep": "\/api\/3\/workflow_steps\/480a1532-2b1c-4f97-ad06-5fd22e5c7052",
+            "targetStep": "\/api\/3\/workflow_steps\/6ad499e7-871f-4165-b0c7-4e5ab567d4e4",
+            "sourceStep": "\/api\/3\/workflow_steps\/8884226f-6149-4ebb-8a72-0ed1f25ae513",
             "label": "yes",
             "isExecuted": false,
-            "uuid": "c8bcc7f1-8169-4b3e-b226-4af6688f117c"
+            "uuid": "1789167a-3f53-438d-90ab-e03f13db7a3b"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Start -> Configuartion",
-            "targetStep": "\/api\/3\/workflow_steps\/b7c5a7ac-0201-4dd4-b9f0-39042529a142",
-            "sourceStep": "\/api\/3\/workflow_steps\/12d6b4df-7389-4c35-b714-b4d1689cbad0",
+            "targetStep": "\/api\/3\/workflow_steps\/2c4a8d6e-5985-4c1b-9c50-df1baade8055",
+            "sourceStep": "\/api\/3\/workflow_steps\/671e5d8f-2077-4806-b40e-18b302ee91b4",
             "label": null,
             "isExecuted": false,
-            "uuid": "aee21284-4340-4b41-a9db-d5518e1166d7"
+            "uuid": "3e691f9b-5da0-438f-81b5-65f55ec65055"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Configuartion -> Match IP in Internal Subnets",
-            "targetStep": "\/api\/3\/workflow_steps\/487f5bd9-a725-4ebb-abb5-76f499337c82",
-            "sourceStep": "\/api\/3\/workflow_steps\/b7c5a7ac-0201-4dd4-b9f0-39042529a142",
+            "targetStep": "\/api\/3\/workflow_steps\/9481a308-bf8b-42fb-85d1-18516205331b",
+            "sourceStep": "\/api\/3\/workflow_steps\/2c4a8d6e-5985-4c1b-9c50-df1baade8055",
             "label": null,
             "isExecuted": false,
-            "uuid": "1b2561d0-247d-46c3-a9ed-57c6c946fa61"
+            "uuid": "cb472246-f3c4-416a-97de-60073e23abf2"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Reverse DNS -> Compute Private IP Summary",
-            "targetStep": "\/api\/3\/workflow_steps\/407376c9-1a90-437f-9d98-9ef947261ca2",
-            "sourceStep": "\/api\/3\/workflow_steps\/f90d4408-8407-4948-bbf7-4cfe96209efd",
+            "targetStep": "\/api\/3\/workflow_steps\/a7d7a5d3-58c8-4b4b-ad65-fc4ec1c4be65",
+            "sourceStep": "\/api\/3\/workflow_steps\/6ad499e7-871f-4165-b0c7-4e5ab567d4e4",
             "label": null,
             "isExecuted": false,
-            "uuid": "79dd4bcd-4b99-4386-94e6-d72141d6e086"
+            "uuid": "810b1335-d472-47ad-83b5-f179203872c4"
         }
     ],
     "priority": "\/api\/3\/picklists\/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
-    "uuid": "08b77e77-8174-4335-be40-16e22dfb7903",
-    "recordTags": [],
-    "id": 3169,
-    "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
-    "createDate": 1649407355,
-    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
-    "modifyDate": 1649769965,
+    "uuid": "29ff2bf9-4d63-4950-9528-a3a2d72dc919",
     "owners": [],
-    "isPrivate": false
+    "isPrivate": false,
+    "deletedAt": null,
+    "recordTags": [
+        "Pre_Processing"
+    ]
 }

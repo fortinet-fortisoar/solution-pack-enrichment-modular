@@ -13,10 +13,9 @@
         "artifact"
     ],
     "synchronous": false,
-    "lastModifyDate": 1649767819,
-    "collection": "\/api\/3\/workflow_collections\/7d2ceeee-a36b-4015-8379-0779f92b8591",
+    "collection": "\/api\/3\/workflow_collections\/4b99d834-23d8-4f4e-a4ba-0028baf4ce3b",
     "versions": [],
-    "triggerStep": "\/api\/3\/workflow_steps\/a7fa14ab-d582-494d-81ae-3fe79be5e267",
+    "triggerStep": "\/api\/3\/workflow_steps\/77062085-6a59-47b0-9cc6-571b901a25e3",
     "steps": [
         {
             "@type": "WorkflowStep",
@@ -31,8 +30,7 @@
             "top": "435",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-            "uuid": "538c92b0-e531-4c04-9748-e9d8a4afbb0e",
-            "id": 16402
+            "uuid": "6eafb95c-3917-409f-bf73-203c4502b781"
         },
         {
             "@type": "WorkflowStep",
@@ -46,8 +44,7 @@
             "top": "300",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-            "uuid": "8cdde5a6-ef08-4bfa-806b-78dcca3351c3",
-            "id": 16327
+            "uuid": "2d4692aa-bb73-42f5-8344-423e9790b680"
         },
         {
             "@type": "WorkflowStep",
@@ -69,8 +66,7 @@
             "top": "30",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
-            "uuid": "a7fa14ab-d582-494d-81ae-3fe79be5e267",
-            "id": 16324
+            "uuid": "77062085-6a59-47b0-9cc6-571b901a25e3"
         },
         {
             "@type": "WorkflowStep",
@@ -97,50 +93,45 @@
             "top": "165",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
-            "uuid": "ff21f658-97b7-46e6-9ae1-d8733298d08c",
-            "id": 16323
+            "uuid": "0ca3ed7e-4b09-4438-a27e-9c376ce8c439"
         }
     ],
     "routes": [
         {
             "@type": "WorkflowRoute",
             "name": "Start -> Get Emailrep Reputation",
-            "targetStep": "\/api\/3\/workflow_steps\/ff21f658-97b7-46e6-9ae1-d8733298d08c",
-            "sourceStep": "\/api\/3\/workflow_steps\/a7fa14ab-d582-494d-81ae-3fe79be5e267",
+            "targetStep": "\/api\/3\/workflow_steps\/0ca3ed7e-4b09-4438-a27e-9c376ce8c439",
+            "sourceStep": "\/api\/3\/workflow_steps\/77062085-6a59-47b0-9cc6-571b901a25e3",
             "label": null,
             "isExecuted": false,
-            "uuid": "d2798ff6-97a0-4b79-9c0b-176196ed73d3"
+            "uuid": "6108ae3e-914e-414f-97b8-de5aaed9f9c2"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Get Emailrep Reputation -> Reputation Data Preprocess",
-            "targetStep": "\/api\/3\/workflow_steps\/8cdde5a6-ef08-4bfa-806b-78dcca3351c3",
-            "sourceStep": "\/api\/3\/workflow_steps\/ff21f658-97b7-46e6-9ae1-d8733298d08c",
+            "targetStep": "\/api\/3\/workflow_steps\/2d4692aa-bb73-42f5-8344-423e9790b680",
+            "sourceStep": "\/api\/3\/workflow_steps\/0ca3ed7e-4b09-4438-a27e-9c376ce8c439",
             "label": null,
             "isExecuted": false,
-            "uuid": "2ecefca5-724f-40cf-8fd5-bbc23ce99a93"
+            "uuid": "fc031066-2e4c-43b3-b3ed-876f5f6829ec"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Reputation Data Preprocess -> Output Data",
-            "targetStep": "\/api\/3\/workflow_steps\/538c92b0-e531-4c04-9748-e9d8a4afbb0e",
-            "sourceStep": "\/api\/3\/workflow_steps\/8cdde5a6-ef08-4bfa-806b-78dcca3351c3",
+            "targetStep": "\/api\/3\/workflow_steps\/6eafb95c-3917-409f-bf73-203c4502b781",
+            "sourceStep": "\/api\/3\/workflow_steps\/2d4692aa-bb73-42f5-8344-423e9790b680",
             "label": null,
             "isExecuted": false,
-            "uuid": "9ac0ef7f-7bfc-4ee2-bfd4-75dd802abc7f"
+            "uuid": "eacfea50-1c1f-4ec7-886a-41d3dd0951fb"
         }
     ],
     "priority": "\/api\/3\/picklists\/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
-    "uuid": "c85567ca-d53e-46e4-bf41-2591178c9379",
+    "uuid": "e65bb16d-8092-4396-9d6c-8cb5fbf0935e",
+    "owners": [],
+    "isPrivate": false,
+    "deletedAt": null,
     "recordTags": [
         "Subroutine",
         "Email_Enrichment"
-    ],
-    "id": 3165,
-    "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
-    "createDate": 1649405370,
-    "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
-    "modifyDate": 1649767819,
-    "owners": [],
-    "isPrivate": false
+    ]
 }

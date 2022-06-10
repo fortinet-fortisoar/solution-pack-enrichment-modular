@@ -4,7 +4,12 @@
     "Hashcode_Enrichment",
     "URL_Enrichment",
     "IP_Enrichment",
+    "Email_Enrichment",
+    "Host_Enrichment",
+    "File_Enrichment",
+    "Registry_Enrichment",
+    "Process_Enrichment",
     "Enrichment",
     "Utility",
-    "Email_Enrichment"
+    "Pre_Processing"
 ]
