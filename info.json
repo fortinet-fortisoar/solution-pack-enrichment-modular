@@ -14,7 +14,7 @@
         }
     ],
     "prerequisite": "To avoid indicators being rated twice you will need to disable the existing enrichment playbooks.\nThis Solution Pack provides the **2 - Modular Enrichment** Playbooks collection",
-    "publisher": "Community",
+    "publisher": "Fortinet CSE",
     "description": "This solution pack implements a novel approach to enrichment playbooks. A primary enrichment playbook is responsible for all indicator types enrichment.\nFor each type several referenced playbooks are used to perform the enrichment from a single cyber threat intelligence source.\nThe primary playbook collects and compiles enrichment data from all referenced playbooks and computes the resulting indicator's attributes.",
     "help": "https://github.com/fortinet-fortisoar/solution-pack-enrichment-modular/blob/develop/docs/README.md",
     "category": [
